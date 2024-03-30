@@ -18,5 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+// Registration Routes
+Route::resource('register', RegisterController::class)->only(['index', 'store']);
