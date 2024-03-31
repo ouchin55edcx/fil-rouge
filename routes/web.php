@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,21 @@ Route::get('/', function () {
 });
 
 // Registration Routes
-Route::resource('register', RegisterController::class)->only(['index', 'store']);
+Route::resource('register', RegisterController::class)->only(['index', 'store']); 
+
+
+
+// Login Routes
+Route::resource('login', LoginController::class)->only(['index', 'store']);
+
+Route::get('/client/dashboard', function () {
+    return 'Client Dashboard';
+})->name('client.dashboard');
+
+Route::get('/expert/dashboard', function () {
+    return 'Expert Dashboard';
+})->name('expert.dashboard');
+
+Route::get('/superadmin/dashboard', function () {
+    return 'SuperAdmin Dashboard';
+})->name('superadmin.dashboard');
