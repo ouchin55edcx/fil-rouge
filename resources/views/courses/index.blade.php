@@ -38,17 +38,14 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                 <!-- Replace this with your grid items -->
                 <div class="bg-white rounded-lg border p-4">
-                    <img src="https://assets.tryhackme.com/img/paths/presecurity.svg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover">
+                    <a href="{{route('course_list.index')}}"><img src="https://assets.tryhackme.com/img/paths/presecurity.svg" alt="Placeholder Image"
+                        class="w-full h-48 rounded-md object-cover"></a>
                     <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Blog Title</div>
+                        <div class="font-bold text-xl mb-2">Category 1</div>
                         <p class="text-gray-700 text-base">
                             This is a simple blog card example using Tailwind CSS. You can replace this text with your
                             own blog content.
                         </p>
-                    </div>
-                    <div class="px-1 py-4">
-                        <a href="#" class="text-blue-500 hover:underline">Read More</a>
                     </div>
                 </div>
                 <div class="bg-white rounded-lg border p-4">
@@ -61,13 +58,6 @@
                             own blog content.
                         </p>
                     </div>
-                    <div class="h-10 flex justify-between items-center px-3">
-                        <h3 class="text-white font-bold bg-gray-700 rounded-full m-1 p-1"> Security</h3>
-                    </div>
-
-                    <div class="px-1 py-4">
-                        <a href="#" class="text-blue-500 hover:underline">Read More</a>
-                    </div>
                 </div>
                 <div class="bg-white rounded-lg border p-4">
                     <img src="https://assets.tryhackme.com/img/paths/security-engineer.svg" alt="Placeholder Image"
@@ -79,9 +69,7 @@
                             own blog content.
                         </p>
                     </div>
-                    <div class="px-1 py-4">
-                        <a href="#" class="text-blue-500 hover:underline">Read More</a>
-                    </div>
+    
                 </div>
                 <div class="bg-white rounded-lg border p-4">
                     <img src="https://assets.tryhackme.com/img/paths/devsecops.svg" alt="Placeholder Image"
@@ -93,9 +81,7 @@
                             own blog content.
                         </p>
                     </div>
-                    <div class="px-1 py-4">
-                        <a href="#" class="text-blue-500 hover:underline">Read More</a>
-                    </div>
+    
                 </div>
                 <div class="bg-white rounded-lg border p-4">
                     <img src="https://assets.tryhackme.com/img/paths/redteaming.svg" alt="Placeholder Image"
@@ -107,9 +93,7 @@
                             own blog content.
                         </p>
                     </div>
-                    <div class="px-1 py-4">
-                        <a href="#" class="text-blue-500 hover:underline">Read More</a>
-                    </div>
+    
                 </div>
                 <div class="bg-white rounded-lg border p-4">
                     <img src="https://assets.tryhackme.com/img/paths/cyberdefense.svg" alt="Placeholder Image"
@@ -121,9 +105,7 @@
                             own blog content.
                         </p>
                     </div>
-                    <div class="px-1 py-4">
-                        <a href="#" class="text-blue-500 hover:underline">Read More</a>
-                    </div>
+    
                 </div>
                 <div class="bg-white rounded-lg border p-4">
                     <img src="https://assets.tryhackme.com/img/paths/offensivepentesting.jpg" alt="Placeholder Image"
@@ -135,9 +117,7 @@
                             own blog content.
                         </p>
                     </div>
-                    <div class="px-1 py-4">
-                        <a href="#" class="text-blue-500 hover:underline">Read More</a>
-                    </div>
+    
                 </div>
                 <div class="bg-white rounded-lg border p-4">
                     <img src="https://assets.tryhackme.com/img/paths/web.svg" alt="Placeholder Image"
@@ -149,9 +129,7 @@
                             own blog content.
                         </p>
                     </div>
-                    <div class="px-1 py-4">
-                        <a href="#" class="text-blue-500 hover:underline">Read More</a>
-                    </div>
+    
                 </div>
                 <!-- Add more items as needed -->
             </div>

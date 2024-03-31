@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CourseDetailsController;
+use App\Http\Controllers\CourseListController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\Expert\DashboardController;
 use App\Http\Controllers\ExpertController;
@@ -40,8 +43,10 @@ Route::resource('/client', ClientController::class)->only(['index', 'show']);
 
 Route::resource('/expert', ExpertController::class)->only(['index', 'show']);
 
-Route::resource('/courses', CoursesController::class)->only(['index', 'show']);
+Route::resource('/courses', CoursesController::class)->only(['index']);
 
-Route::get('/superadmin/dashboard', function () {
-    return 'SuperAdmin Dashboard';
-})->name('superadmin.dashboard');
+Route::resource('/courses/course_list', CourseListController::class)->only(['index']);
+Route::resource('/courses/course_details', CourseDetailsController::class)->only(['index']);
+
+Route::resource('/admin', AdminController::class)->only(['index', 'show']);
+
