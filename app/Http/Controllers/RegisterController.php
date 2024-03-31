@@ -7,6 +7,8 @@ use App\Models\Expert;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -38,6 +40,8 @@ class RegisterController extends Controller
                 'phone_number' => $request->phone_number,
                 'address' => $request->address,
             ]);
+    
+            return redirect(RouteServiceProvider::CLIENT_HOME);
         } elseif ($validatedData['role'] === 'Expert') {
             $request->validate([
                 'certificate' => 'required|string',
@@ -48,23 +52,12 @@ class RegisterController extends Controller
                 'certificate' => $request->certificate,
                 'experience' => $request->experience,
             ]);
+    
+            return redirect()->intended(RouteServiceProvider::EXPERT_HOME);
         }
     
-        // Redirect users to their respective dashboards
-        switch ($validatedData['role']) {
-            case 'Client':
-                return redirect()->route('client.dashboard');
-                break;
-            case 'Expert':
-                return redirect()->route('expert.dashboard');
-                break;
-            case 'SuperAdmin':
-                return redirect()->route('superadmin.dashboard');
-                break;
-            default:
-                // Redirect to a default dashboard or handle this case as needed
-                return redirect()->route('default.dashboard');
-                break;
-        }
+        // For SuperAdmin or any other roles, you can provide a default redirect
+        return redirect(RouteServiceProvider::HOME);
     }
+    
 }

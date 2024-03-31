@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
@@ -12,37 +13,36 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-public function store(Request $request)
-{
-    $credentials = $request->validate([
-        'login' => 'required|string',
-        'password' => 'required|string',
-    ]);
-
-    $field = filter_var($credentials['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-    if (Auth::attempt([$field => $credentials['login'], 'password' => $credentials['password']])) {
-        $user = Auth::user();
-        switch ($user->role) {
-            case 'Client':
-                return redirect()->route('client.dashboard');
-                break;
-            case 'Expert':
-                return redirect()->route('expert.dashboard');
-                break;
-            case 'SuperAdmin':
-                return redirect()->route('superadmin.dashboard');
-                break;
-            default:
-                // Redirect to a default dashboard or handle this case as needed
-                return redirect()->route('default.dashboard');
-                break;
+    public function store(Request $request)
+    {
+        $credentials = $request->validate([
+            'login' => 'required|string',
+            'password' => 'required|string',
+        ]);
+    
+        $field = filter_var($credentials['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+    
+        if (Auth::attempt([$field => $credentials['login'], 'password' => $credentials['password']])) {
+            $user = Auth::user();
+            switch ($user->role) {
+                case 'Client':
+                    return redirect(RouteServiceProvider::CLIENT_HOME);
+                    break;
+                case 'Expert':
+                    return redirect(RouteServiceProvider::EXPERT_HOME);
+                    break;
+                case 'SuperAdmin':
+                    return redirect(RouteServiceProvider::SUPERADMIN_HOME);
+                    break;
+                default:
+                    return redirect(RouteServiceProvider::HOME);
+                    break;
+            }
         }
+    
+        return back()->withErrors([
+            'login' => 'The provided credentials do not match our records.',
+        ]);
     }
-
-    return back()->withErrors([
-        'login' => 'The provided credentials do not match our records.',
-    ]);
-}
 
 }
