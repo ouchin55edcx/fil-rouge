@@ -71,13 +71,13 @@
             <a href="#" class="hidden lg:inline-block ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
                 <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400" src="https://imgs.search.brave.com/L5BVKmFq-Fc-6Ay0CSQM4ua29I67UrsE34rpF5zFwd0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAwLzY0LzY3LzI3/LzM2MF9GXzY0Njcy/NzM2X1U1a3BkR3M5/a2VVbGw4Q1JRM3Az/WWFFdjJNNnFrVlk1/LmpwZw" alt="Profile Image">
             </a>            
-                <form method="POST" action="#">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="hidden lg:inline-block py-2 px-6 lg:ml-3 border-2 border-yellow-500 hover:bg-yellow-600 hover:text-white text-sm text-black font-bold rounded-xl transition duration-200 cursor-pointer">
-                        Logout
-                    </button>
-                </form>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                @method('POST')
+                <button type="submit" class="hidden lg:inline-block py-2 px-6 lg:ml-3 border-2 border-yellow-500 hover:bg-yellow-600 hover:text-white text-sm text-black font-bold rounded-xl transition duration-200 cursor-pointer">
+                    Logout
+                </button>
+            </form>
             @endauth
           </div>
     </nav>

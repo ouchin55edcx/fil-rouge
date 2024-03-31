@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LoginController;
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +27,7 @@ Route::resource('register', RegisterController::class)->only(['index', 'store'])
 
 // Login Routes
 Route::resource('login', LoginController::class)->only(['index', 'store']);
-
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::get('/client/dashboard', function () {
     return 'Client Dashboard';
 })->name('client.dashboard');
