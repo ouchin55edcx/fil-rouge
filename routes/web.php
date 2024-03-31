@@ -50,3 +50,7 @@ Route::resource('/courses/course_details', CourseDetailsController::class)->only
 
 Route::resource('/admin', AdminController::class)->only(['index', 'show']);
 
+use App\Http\Controllers\GoogleAuthController;
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');
