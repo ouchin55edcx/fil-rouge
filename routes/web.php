@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\Expert\DashboardController;
+use App\Http\Controllers\ExpertController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 
@@ -30,13 +34,10 @@ Route::resource('login', LoginController::class)->only(['index', 'store']);
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 
-Route::get('/client/dashboard', function () {
-    return 'Client Dashboard';
-})->name('client.dashboard');
 
-Route::get('/expert/dashboard', function () {
-    return 'Expert Dashboard';
-})->name('expert.dashboard');
+Route::resource('/client', ClientController::class)->only(['index', 'show']);
+
+Route::resource('/expert',ExpertController::class)->only(['index', 'show']);
 
 Route::get('/superadmin/dashboard', function () {
     return 'SuperAdmin Dashboard';
