@@ -15,4 +15,11 @@ class Image extends Model
     {
         return $this->hasOne(Category::class);
     }
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
+
+
 }
