@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CoursesController extends Controller
 {
     public function index(){
-        return view('courses.index');
+        $categories = Category::with('image')->get();
+        return view('courses.index', compact('categories'));
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\CourseDetailsController;
 use App\Http\Controllers\CourseListController;
 use App\Http\Controllers\CoursesController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\Expert\DashboardController;
 use App\Http\Controllers\ExpertController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
-
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 /*
@@ -49,8 +50,9 @@ Route::resource('/courses/course_list', CourseListController::class)->only(['ind
 Route::resource('/courses/course_details', CourseDetailsController::class)->only(['index']);
 
 Route::resource('/admin', AdminController::class)->only(['index', 'show']);
+Route::resource('/community', CommunityController::class)->only(['index']);
 
-use App\Http\Controllers\GoogleAuthController;
+
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');

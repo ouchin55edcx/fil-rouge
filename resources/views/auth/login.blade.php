@@ -49,9 +49,9 @@
         </div>
 
         <div class=" flex gap-12 mx-16 my-8">
-            <button
-                class="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            <a href="{{ route('google.redirect') }}">
+                <button class="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="-0.5 0 48 48" version="1.1">
 
                     <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -73,10 +73,11 @@
                         </g>
                     </g>
                 </svg>
-                <span>Continue with Google</span>
-            </button>
+                    <span>Continue with Google</span>
+                </button>
+            </a>
 
-            <button
+            {{-- <button
                 class="flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                 <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="0 0 48 48" version="1.1">
@@ -92,7 +93,7 @@
                 </svg>
 
                 <span>Continue with Facebook</span>
-            </button>
+            </button> --}}
         </div>
 
         <div class="flex justify-between m-16">

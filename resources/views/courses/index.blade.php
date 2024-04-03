@@ -37,100 +37,20 @@
         <div class="container mx-auto mx-auto p-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                 <!-- Replace this with your grid items -->
-                <div class="bg-white rounded-lg border p-4">
-                    <a href="{{route('course_list.index')}}"><img src="https://assets.tryhackme.com/img/paths/presecurity.svg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover"></a>
-                    <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Category 1</div>
-                        <p class="text-gray-700 text-base">
-                            This is a simple blog card example using Tailwind CSS. You can replace this text with your
-                            own blog content.
-                        </p>
+                @foreach ($categories as $category)
+
+                    <div class="bg-white rounded-lg border p-4">
+                        <a href="{{route('course_list.index')}}"><img src="{{ asset('/storage/images/' . $category->image->path) }}" alt="Placeholder Image"
+                            class="w-full h-48 rounded-md object-cover"></a>
+                        <div class="px-1 py-4">
+                            <div class="font-bold text-xl mb-2">{{ $category->name }}</div>
+                            <p class="text-gray-700 text-base">
+                                {{ $category->description }}
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="bg-white rounded-lg border p-4">
-                    <img src="https://assets.tryhackme.com/img/paths/SOCL2-square.svg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover">
-                    <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Blog Title</div>
-                        <p class="text-gray-700 text-base">
-                            This is a simple blog card example using Tailwind CSS. You can replace this text with your
-                            own blog content.
-                        </p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg border p-4">
-                    <img src="https://assets.tryhackme.com/img/paths/security-engineer.svg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover">
-                    <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Blog Title</div>
-                        <p class="text-gray-700 text-base">
-                            This is a simple blog card example using Tailwind CSS. You can replace this text with your
-                            own blog content.
-                        </p>
-                    </div>
-    
-                </div>
-                <div class="bg-white rounded-lg border p-4">
-                    <img src="https://assets.tryhackme.com/img/paths/devsecops.svg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover">
-                    <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Blog Title</div>
-                        <p class="text-gray-700 text-base">
-                            This is a simple blog card example using Tailwind CSS. You can replace this text with your
-                            own blog content.
-                        </p>
-                    </div>
-    
-                </div>
-                <div class="bg-white rounded-lg border p-4">
-                    <img src="https://assets.tryhackme.com/img/paths/redteaming.svg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover">
-                    <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Blog Title</div>
-                        <p class="text-gray-700 text-base">
-                            This is a simple blog card example using Tailwind CSS. You can replace this text with your
-                            own blog content.
-                        </p>
-                    </div>
-    
-                </div>
-                <div class="bg-white rounded-lg border p-4">
-                    <img src="https://assets.tryhackme.com/img/paths/cyberdefense.svg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover">
-                    <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Blog Title</div>
-                        <p class="text-gray-700 text-base">
-                            This is a simple blog card example using Tailwind CSS. You can replace this text with your
-                            own blog content.
-                        </p>
-                    </div>
-    
-                </div>
-                <div class="bg-white rounded-lg border p-4">
-                    <img src="https://assets.tryhackme.com/img/paths/offensivepentesting.jpg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover">
-                    <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Blog Title</div>
-                        <p class="text-gray-700 text-base">
-                            This is a simple blog card example using Tailwind CSS. You can replace this text with your
-                            own blog content.
-                        </p>
-                    </div>
-    
-                </div>
-                <div class="bg-white rounded-lg border p-4">
-                    <img src="https://assets.tryhackme.com/img/paths/web.svg" alt="Placeholder Image"
-                        class="w-full h-48 rounded-md object-cover">
-                    <div class="px-1 py-4">
-                        <div class="font-bold text-xl mb-2">Blog Title</div>
-                        <p class="text-gray-700 text-base">
-                            This is a simple blog card example using Tailwind CSS. You can replace this text with your
-                            own blog content.
-                        </p>
-                    </div>
-    
-                </div>
+                @endforeach
+
                 <!-- Add more items as needed -->
             </div>
         </div>
