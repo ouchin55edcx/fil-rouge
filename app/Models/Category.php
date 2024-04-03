@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->belongsTo(Image::class);
     }
+
+    public function lesson()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }

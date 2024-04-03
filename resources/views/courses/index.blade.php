@@ -38,9 +38,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                 <!-- Replace this with your grid items -->
                 @foreach ($categories as $category)
-
                     <div class="bg-white rounded-lg border p-4">
-                        <a href="{{route('course_list.index')}}"><img src="{{ asset('/storage/images/' . $category->image->path) }}" alt="Placeholder Image"
+                        <a href="{{route('course_list.index',['id' => $category->id])}}"><img src="{{ asset('/storage/images/' . $category->image->path) }}" alt="Placeholder Image"
                             class="w-full h-48 rounded-md object-cover"></a>
                         <div class="px-1 py-4">
                             <div class="font-bold text-xl mb-2">{{ $category->name }}</div>

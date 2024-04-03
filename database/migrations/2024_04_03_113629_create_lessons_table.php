@@ -19,9 +19,13 @@ return new class extends Migration
             $table->string('lessonDesc');
             $table->string('content');
             $table->unsignedBigInteger('image_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+
             $table->timestamps();
 
             $table->foreign('image_id')->references('id')->on('images')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+
 
         });
     }

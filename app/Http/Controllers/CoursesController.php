@@ -11,4 +11,5 @@ class CoursesController extends Controller
         $categories = Category::with('image')->get();
         return view('courses.index', compact('categories'));
     }
+    
 }
