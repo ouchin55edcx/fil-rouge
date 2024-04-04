@@ -49,10 +49,8 @@ Route::resource('/courses', CoursesController::class)->only(['index']);
 Route::resource('/courses/course_list', CourseListController::class)->only(['index','show']);
 Route::resource('/courses/course_details', CourseDetailsController::class)->only(['index']);
 
-Route::resource('/admin', AdminController::class)->only(['index', 'show']);
+Route::resource('/admin', AdminController::class)->only(['index','store']);
 Route::resource('/community', CommunityController::class)->only(['index']);
-
-
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');    

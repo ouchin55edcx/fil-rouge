@@ -9,9 +9,9 @@ class Lesson extends Model
 {
     use HasFactory;
 
-    public function images()
+    public function image()
     {
-        return $this->hasMany(Image::class);
+        return $this->belongsTo(Image::class);
     }
 
     public function category()

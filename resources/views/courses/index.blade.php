@@ -32,15 +32,16 @@
 
 
 
-    <!-- component -->
+    <!-- com    ponent -->
     <div class="">
         <div class="container mx-auto mx-auto p-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                 <!-- Replace this with your grid items -->
                 @foreach ($categories as $category)
                     <div class="bg-white rounded-lg border p-4">
-                        <a href="{{route('course_list.index',['id' => $category->id])}}"><img src="{{ asset('/storage/images/' . $category->image->path) }}" alt="Placeholder Image"
-                            class="w-full h-48 rounded-md object-cover"></a>
+                        <a href="{{route('course_list.index',['id' => $category->id])}}">
+                        <img src="../storage/{{$category->image->path}}" alt="{{ $category->name }}">
+                            </a>
                         <div class="px-1 py-4">
                             <div class="font-bold text-xl mb-2">{{ $category->name }}</div>
                             <p class="text-gray-700 text-base">
@@ -49,7 +50,7 @@
                         </div>
                     </div>
                 @endforeach
-
+                    
                 <!-- Add more items as needed -->
             </div>
         </div>

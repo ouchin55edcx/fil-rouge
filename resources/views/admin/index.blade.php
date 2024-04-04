@@ -274,6 +274,7 @@
                     </div>
                 </div>
             </nav>
+
             <div class="mt-12">
                 <div class="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
                     <div class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
@@ -575,6 +576,38 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">Add Category</div>
+            
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('admin.store') }}" enctype="multipart/form-data">
+                                    @csrf
+            
+                                    <div class="form-group">
+                                        <label for="name">Category Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" id="description" name="description"></textarea>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="image">Category Image</label>
+                                        <input type="file" class="form-control-file" id="image" name="image" required>
+                                    </div>
+            
+                                    <button type="submit" class="btn btn-primary">Add Category</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>

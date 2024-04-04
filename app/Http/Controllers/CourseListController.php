@@ -12,15 +12,9 @@ class CourseListController extends Controller
     {
         $categoryId = $request->query('id');
         $category = Category::findOrFail($categoryId);
-        $lessons = Lesson::where('category_id', $category->id)->get();
-        // dd($lessons);    
-        return view('courses.course_list', compact('lessons', 'category'));
+        $lessons = Lesson::where('category_id', $category->id)->with('image')->get();
+        dd($lessons);    
+        return view('courses.course_list', compact('lessons'));
     }
 
-    // public function show(Category $category)
-    // {
-    //     $lessons = $category->lessons()->with('images')->get();
-    //     dd($lessons);
-    //     return view('courses.course_list', compact('lessons', 'category'));
-    // }
 }
