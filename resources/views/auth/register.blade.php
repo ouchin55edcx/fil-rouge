@@ -1,14 +1,7 @@
-<!doctype html>
-<html>
+@extends('layouts.navbar')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body class="antialiased ">
+@section('content')
+    
 
     <section class="bg-[#161E2D] h-36 w-full flex  items-center gap-4 ">
 
@@ -131,7 +124,7 @@
         </div>
 
         <div class="flex justify-between m-16">
-            <h3 class="text-center">Already have an account?<span class="text-blue-400 "><a href="#"> Log in
+            <h3 class="text-center">Already have an account?<span class="text-blue-400 "><a href="{{route('login.index')}}"> Log in
         </div>
     </section>
 
@@ -153,3 +146,5 @@
             }
         });
     </script>
+
+@endsection

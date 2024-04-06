@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Models\Client;
-use App\Models\Expert;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -59,5 +57,5 @@ class RegisterController extends Controller
         // For SuperAdmin or any other roles, you can provide a default redirect
         return redirect(RouteServiceProvider::HOME);
     }
-    
 }
+

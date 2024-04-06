@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
@@ -44,5 +45,4 @@ class LoginController extends Controller
             'login' => 'The provided credentials do not match our records.',
         ]);
     }
-
 }

@@ -1,19 +1,14 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\CommunityController;
-use App\Http\Controllers\CourseDetailsController;
-use App\Http\Controllers\CourseListController;
-use App\Http\Controllers\CoursesController;
-use App\Http\Controllers\Expert\DashboardController;
-use App\Http\Controllers\ExpertController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\GoogleAuthController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Course\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,28 +24,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Registration Routes
-Route::resource('register', RegisterController::class)->only(['index', 'store']); 
-
-
-
-// Login Routes
+// Auth routes 
+Route::resource('/register' , RegisterController::class);
 Route::resource('login', LoginController::class)->only(['index', 'store']);
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+Route::resource('/forget-password', ForgotPasswordController::class)->only('index');
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');    
+
+
+// category routes 
+Route::resource('/courses/category', CategoryController::class)->only('index');
+
+
+
+
+
+
+
 
 
 
 Route::resource('/client', ClientController::class)->only(['index', 'show']);
 
-Route::resource('/expert', ExpertController::class)->only(['index', 'show']);
 
-Route::resource('/courses', CoursesController::class)->only(['index']);
 
-Route::resource('/courses/course_list', CourseListController::class)->only(['index','show']);
-Route::resource('/courses/course_details', CourseDetailsController::class)->only(['index']);
 
-Route::resource('/admin', AdminController::class)->only(['index','store']);
-Route::resource('/community', CommunityController::class)->only(['index']);
 
-Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');    

@@ -1,14 +1,8 @@
-<!doctype html>
-<html>
+@extends('layouts.navbar')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
+@section('content')
+    
 
-<body class="antialiased ">
 
     <section class="bg-[#161E2D] h-36 w-full flex  items-center gap-4 ">
 
@@ -99,6 +93,8 @@
         <div class="flex justify-between m-16">
             <h3 class="">Need an account? <span class="text-blue-400"><a href="{{ route('register.index') }}">Signup</a></span></h3>
             <h3 class="">If you forgot your password, go <span class="text-blue-400"><a
-                        href="">here</a></span></h3>
+                        href="{{route('forget-password.index')}}">here</a></span></h3>
         </div>
     </section>
+
+    @endsection
