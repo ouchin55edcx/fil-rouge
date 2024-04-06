@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Courses;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CoursesController extends Controller
+class CorseController extends Controller
 {
     public function index()
     {
         $categories = Category::with('image')->get();
         // dd($categories);
-        return view('courses.index', compact('categories'));
+        return view('courses.category.index', compact('categories'));
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleAuthController;
@@ -7,7 +8,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Course\CategoryController;
+use App\Http\Controllers\Courses\CategoryController;
+use App\Http\Controllers\Courses\CoursesListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +36,19 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 
 
 // category routes 
-Route::resource('/courses/category', CategoryController::class)->only('index');
+Route::resource('/courses/category', CoursesListController::class)->only('index');
 
+
+
+// courses list  routes 
+Route::resource('/courses/course/course_list', CoursesListController::class)->only('index');
+
+
+
+// dashborad admin routes 
+Route::resource('/admin', AdminController::class)->only('index');
+
+Route::resource('/admin/category/categoriesManager', CategoryController::class)->only('index','store','edit','update','destroy');
 
 
 

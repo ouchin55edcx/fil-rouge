@@ -12,20 +12,8 @@
 
 
 
+#-----------------------------------------------------------
 
+#layouts for side bar dashboard 
 
-
-
-
-app/
-├── Http/
-│   ├── Controllers/
-│   │   └── YourController.php
-├── Repositories/
-│   ├── Contracts/
-│   │   └── YourRepositoryInterface.php
-│   ├── YourRepository.php
-├── Services/
-│   └── YourService.php
-├── Models/
-│   └── YourModel.php
+#complete crud for category with view 
