@@ -14,6 +14,6 @@
 
 #-----------------------------------------------------------
 
-#layouts for side bar dashboard 
+#layouts for side bar dashboard => done
 
-#complete crud for category with view 
+#complete crud for category with view => done  

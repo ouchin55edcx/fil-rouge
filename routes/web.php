@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\category\CategoryManagerController;
+use App\Http\Controllers\Admin\course\CorseManagerController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleAuthController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Courses\CategoryController;
+use App\Http\Controllers\Courses\CorseController;
 use App\Http\Controllers\Courses\CoursesListController;
 
 /*
@@ -36,7 +39,7 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 
 
 // category routes 
-Route::resource('/courses/category', CoursesListController::class)->only('index');
+Route::resource('/courses/category', CorseController::class)->only('index');
 
 
 
@@ -48,7 +51,9 @@ Route::resource('/courses/course/course_list', CoursesListController::class)->on
 // dashborad admin routes 
 Route::resource('/admin', AdminController::class)->only('index');
 
-Route::resource('/admin/category/categoriesManager', CategoryController::class)->only('index','store','edit','update','destroy');
+Route::resource('/admin/category/categoriesManager', CategoryManagerController::class)->only('index','store','edit','update','destroy');
+
+Route::resource('/admin/course/coursesManager', CorseManagerController::class)->only('index','store','edit','update','destroy');
 
 
 
