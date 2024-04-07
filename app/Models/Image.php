@@ -18,15 +18,7 @@ class Image extends Model
         return $this->morphTo();
     }                                                                                                                               
 
-    // public function category()
-    // {
-    //     return $this->hasOne(Category::class);
-    // }
 
-    // public function lesson()
-    // {
-    //     return $this->hasMany(Lesson::class);
-    // }
 
 
 }

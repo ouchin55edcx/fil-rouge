@@ -4,18 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Lesson extends Model
 {
     use HasFactory;
 
-    public function image()
+    protected $fillable = ['lessonTitle', 'lessonDesc', 'lesson_id'];
+
+    public function image(): MorphOne
     {
-        return $this->belongsTo(Image::class);
+        return $this->morphOne(Image::class, 'imageable');
     }
 
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+
 }
