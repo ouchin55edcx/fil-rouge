@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\category\CategoryManagerController;
+use App\Http\Controllers\Admin\course\AddCourseController;
 use App\Http\Controllers\Admin\course\CorseManagerController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,7 @@ Route::resource('/admin', AdminController::class)->only('index');
 Route::resource('/admin/category/categoriesManager', CategoryManagerController::class)->only('index','store','edit','update','destroy');
 
 Route::resource('/admin/course/coursesManager', CorseManagerController::class)->only('index','store','edit','update','destroy');
+Route::resource('/admin/course/addCourse', AddCourseController::class)->only('index','store','edit','update','destroy');
 
 
 
