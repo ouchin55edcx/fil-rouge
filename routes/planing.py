@@ -17,3 +17,9 @@
 #layouts for side bar dashboard => done
 
 #complete crud for category with view => done  
+
+
+#-----------------------------------------------------------
+
+# add course view fixed 
+# logic for addin a course 
