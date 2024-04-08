@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('content')
-<section class="bg-white dark:bg-gray-900 flex flex-col justify-between h-[35vh]" style="background-image: url('https://imgs.search.brave.com/ROK3Qtu-_mnp9F999LcmZaTlNRByHubEsDeSPFWCUQk/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9mYWNlYm9vay1z/bWFydHBob25lXzEx/MDQ4OC0yNDUuanBn'); background-size: cover; object-fit: cover; width: 100%;">
+<section class="bg-white dark:bg-gray-900 flex flex-col justify-between h-[35vh]" style="background-image: url('/storage/{{ $thisLesson->image->path }}'); background-size: cover; object-fit: cover; width: 100%;">
     <div>
 
     </div>
@@ -9,8 +9,8 @@
     <div class="flex flex-col sm:flex-row items-center justify-center bg-[rgba(21,27,39,0.85)] w-full p-1 sm:h-24 rounded">        
         <!-- Main content -->
         <div class="flex flex-col mt-4 sm:mt-0 sm:ml-4">
-            <h1 class="text-white font-bold text-2xl sm:text-3xl">HOW TO SECURE YOUR EMAIL</h1>
-            <p class="text-lg font-bold text-gray-400">Hack your first website (legally in a safe environment) and experience an ethical hacker's job.</p>
+            <h1 class="text-white font-bold text-2xl sm:text-3xl">{{$thisLesson->title}}</h1>
+            <p class="text-lg font-bold text-gray-400">{{$thisLesson->description}}</p>
         </div>
     </div>
     
@@ -48,11 +48,6 @@
                 </span>
             </div>
             <div class="flex flex-col block answer bg-gray-200 w-full border-l-4 border-red-500">
-                <img src="storage/images/image 3.png" alt="" class="mx-auto w-96 h-52 m-4">
-                <p class="text-gray-600 m-4 ">In short, offensive security is the process of breaking into computer systems, exploiting software bugs, and finding loopholes in applications to gain
-                    unauthorized access to them.</p>
-                <p class="text-gray-600 m-4 ">To beat a hacker, you need to behave like a hacker, finding vulnerabilities and recommending patches before a cybercriminal does, as you'll do in this room!</p>
-
                 <img src="storage/images/image 4.png" alt="" class="mx-auto w-96 h-52 m-4">
 
                 <p class="text-gray-600 m-4 ">On the flip side, there is also defensive security, which is the process of protecting an organization's network and computer systems by analyzing and securing

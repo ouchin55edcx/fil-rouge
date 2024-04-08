@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('choices', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('choice_text');
+            $table->boolean('is_correct');
+            $table->unsignedBigInteger('question_id');
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('choices');
     }
 };

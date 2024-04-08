@@ -10,16 +10,21 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['taskTitle','TaskContent'];
-
+    protected $fillable = ['title', 'content', 'lesson_id'];
 
     public function lesson()
     {
         return $this->belongsTo(Lesson::class);
     }
 
-    public function image():MorphMany
+    public function image()
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->hasOne(Image::class, 'imageable');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
 }

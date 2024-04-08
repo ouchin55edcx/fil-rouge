@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Courses\CategoryController;
 use App\Http\Controllers\Courses\CorseController;
+use App\Http\Controllers\Courses\CourseDetailsController;
 use App\Http\Controllers\Courses\CoursesListController;
 
 /*
@@ -46,6 +47,7 @@ Route::resource('/courses/category', CorseController::class)->only('index');
 
 // courses list  routes 
 Route::resource('/courses/course/course_list', CoursesListController::class)->only('index');
+Route::resource('/courses/course/course_details', CourseDetailsController::class)->only('index');
 
 
 

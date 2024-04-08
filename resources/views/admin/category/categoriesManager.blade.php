@@ -2,6 +2,7 @@
 
 @section('content')
     <div>
+        
         {{-- display category table  --}}
         <div class="mt-12">
             <div class="container mx-auto px-4">
@@ -162,8 +163,9 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
+    
     <script>
         function openEditModal(categoryId, name, description) {
             document.getElementById('editCategoryId').value = categoryId;
@@ -176,4 +178,6 @@
             document.getElementById('editModal').classList.add('hidden');
         }
     </script>
+
+
 @endsection

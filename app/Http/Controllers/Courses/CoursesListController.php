@@ -14,7 +14,7 @@ class CoursesListController extends Controller
         $categoryId = $request->query('id');
         $category = Category::findOrFail($categoryId);
         $lessons = Lesson::where('category_id', $category->id)->with('image')->get();
-        dd($lessons);    
+        // dd($lessons);    
         return view('courses.course.course_list', compact('lessons'));
     }
 }
