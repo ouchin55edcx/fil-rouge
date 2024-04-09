@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Complaint\ComplaintController;
 use App\Http\Controllers\Courses\CategoryController;
 use App\Http\Controllers\Courses\CorseController;
 use App\Http\Controllers\Courses\CourseDetailsController;
@@ -59,7 +60,9 @@ Route::resource('/admin/category/categoriesManager', CategoryManagerController::
 Route::resource('/admin/course/coursesManager', CorseManagerController::class)->only('index','store','edit','update','destroy');
 Route::resource('/admin/course/addCourse', AddCourseController::class)->only('index','store','edit','update','destroy');
 
+// complaint 
 
+Route::resource('/complaint', ComplaintController::class)->only('index','store');
 
 
 

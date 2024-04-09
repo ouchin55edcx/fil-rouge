@@ -21,5 +21,6 @@
 
 #-----------------------------------------------------------
 
-# add course view fixed 
-# logic for addin a course 
+# solve proleme of add course 
+# courses and tasks and question logic CRUD
+# style of course page 

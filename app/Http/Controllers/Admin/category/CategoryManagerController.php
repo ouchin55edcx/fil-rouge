@@ -46,10 +46,7 @@ class CategoryManagerController extends Controller
 
     private function storeImage($image)
     {
-        // Define the directory where you want to store the images
         $directory = 'images';
-
-        // Store the uploaded image in the specified directory
         return $image->store($directory, 'public');
     }
 
