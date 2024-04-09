@@ -6,7 +6,7 @@
 
      {{-- hero section  --}}
      @if (!auth()->check())
-         
+
      <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-yellow-700 bg-yellow-100 border border-yellow-300 ">
         <div slot="avatar">
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info w-5 h-5 mx-2">
@@ -58,7 +58,7 @@
                         <form method="POST" action="{{ route('complaint.store') }}" class="border-2 border-black-300 p-4 m-4 rounded-lg" enctype="multipart/form-data">
                             @csrf
                             <h1 class="text-center font-bold text-3xl p-8">Complaint Submission Form</h1>
-                    
+
                             <div class="mb-4 p-8">
                                 <label class="text-xl text-gray-600">Type of attack... <span class="text-red-500">*</span></label><br>
                                 <select name="attack" class="border-2 border-gray-400 p-2 bg-[#E9ECEF] rounded-lg w-full" required>
@@ -68,22 +68,33 @@
                                     @endforeach
                                 </select>
                             </div>
-                    
+
+                            <div>
+                                <input type="hidden" name="user_id" value="{{\Illuminate\Support\Facades\Auth::id()}}">
+                            </div>
+
                             <div class="mb-4 p-8">
                                 <label class="text-xl text-gray-600">Description of the Problem... <span class="text-red-500">*</span></label><br>
                                 <textarea name="description" class="border-2 border-gray-300 p-2 bg-[#E9ECEF] rounded-lg w-full"></textarea>
                             </div>
-                    
+
                             <div class="mb-4 p-8">
                                 <label class="text-xl text-gray-600">Proof... <span class="text-red-500">*</span></label><br>
                                 <input type="file" class="border-2 border-gray-300 p-2 bg-[#E9ECEF] rounded-lg w-full" multiple name="image[]" id="title" value="" required placeholder="Preuves..">
                             </div>
-                            
+                            @auth()
                             <div class="mb-4 p-8">
                                 <label class="text-xl text-gray-600">Phone number...<span class="text-red-500">*</span></label><br>
                                 <input type="text" class="border-2 border-gray-300 p-2 bg-[#E9ECEF] rounded-lg w-full" name="phone_number" id="title" value="" required placeholder="Phone number...">
                             </div>
-                    
+                            @endguest
+
+                            @guest()
+                            <div class="mb-4 p-8">
+                                <label class="text-xl text-gray-600">callback...<span class="text-red-500">*</span></label><br>
+                                <input type="text" class="border-2 border-gray-300 p-2 bg-[#E9ECEF] rounded-lg w-full" name="callback" id="title" value="" required placeholder="Phone number...">
+                            </div>
+                            @endguest
                             <div class="flex p-8">
                                 <button type="submit" class="py-2 px-4 max-w-md flex justify-center items-center bg-white text-[#79BF00] border-2 border-[#79BF00] rounded-lg w-full">
                                     Submit complaint..
@@ -134,7 +145,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="flex justify-center border-2 border-[#ECBB0A] rounded-xl">
                                     <div class="flex bg-[#223654] rounded-lg shadow-lg w-72">
                                         <div class="flex flex-col justify-center m-4">

@@ -11,13 +11,16 @@ class Complaint extends Model
     use HasFactory;
 
     protected $fillable = [
-        'attack',
-        'description',
-        'phone_number',
+        'attack', 'description', 'phone_number', 'user_id', 'callback'
     ];
 
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

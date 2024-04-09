@@ -19,4 +19,11 @@ class Client extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function Conmplaint()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
+
 }

@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-  
+
     protected $fillable = [
         'username',
         'email',
@@ -38,5 +38,10 @@ class User extends Authenticatable
     public function expert()
     {
         return $this->hasOne(Expert::class);
+    }
+
+    public function Meeting()
+    {
+        return $this->hasMany(Meeting::class);
     }
 }
