@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('content')
-    
+
 <div class="container mx-auto h-screen bg-gray-200 ">
     <div class="flex flex-row justify-center relative">
         <!-- Middle -->
@@ -33,16 +33,27 @@
                             <h1>Post</h1>
                         </a>
 
-                        <div id="popup1"
-                            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                            <div class="bg-white p-6 rounded-lg">
-                                <!-- component -->
-                                <div class="bg-white rounded-lg p-6  w-[50vw]  h-[55vh]">
-                                    <h2 class="text-lg font-semibold mb-4">Post</h2>
-                                    <p>post her ...</p>
-                                    <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
-                                        onclick="togglePopup()">Close</button>
-                                </div>
+                        <div id="popup1" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+                            <div class="bg-white p-4 rounded-lg w-[50vw]">
+                                <div class="heading text-center font-bold text-xl mb-4 text-gray-800">New Post</div>
+                                <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('POST')
+
+                                    <input type="hidden" value="{{\Illuminate\Support\Facades\Auth::User()->id}}">
+                                    <input class="title bg-gray-100 border border-gray-300 p-2 mb-2 outline-none w-full" spellcheck="false" placeholder="Title" type="text" name="title">
+                                    <textarea class="description bg-gray-100 sec p-2 h-40 border border-gray-300 outline-none w-full mb-4" spellcheck="false" placeholder="Describe everything about this post here" name="content"></textarea>
+
+                                    <!-- icons -->
+                                    <input type="file" name="image[]" multiple>
+
+
+                                    <!-- buttons -->
+                                    <div class="buttons flex">
+                                        <button type="button" class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto" onclick="togglePopup()">Cancel</button>
+                                        <button type="submit" class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">Post</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -83,19 +94,19 @@
                         </p>
                         <h1 class="text-xl font-medium my-2">2-Keep WhatsApp Updated:</h1>
                         <p>
-                            
+
                             Ensure that you are using the latest version of WhatsApp. Developers frequently release
                             updates
                             to patch security vulnerabilities and improve overall security.
                         </p>
-                        
+
                         <h1 class="text-xl font-medium my-2">3-Manage Privacy Settings:</h1>
                         <p>
 
                             Review and adjust your privacy settings in WhatsApp to control who can see your profile
                             information, last seen status, profile photo, and about information.
                             Limit who can add you to groups by adjusting group privacy settings.
-                            
+
                         </p>
 
                     </div>
@@ -400,7 +411,7 @@
                     </div>
                 </div>
                 <!-- /Tweet -->
-                
+
                 <!-- Tweet Q -->
                 <div class="bg-white mt-4   cursor-pointer transition duration-350 ease-in-out pb-4 border-l border-r">
                     <div class="flex flex-shrink-0  pb-0 border-2">

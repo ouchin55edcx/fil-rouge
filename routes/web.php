@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\category\CategoryManagerController;
 use App\Http\Controllers\Admin\course\AddCourseController;
 use App\Http\Controllers\Admin\course\CorseManagerController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\Community\CommunityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
@@ -32,27 +33,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth routes 
+// Auth routes
 Route::resource('/register' , RegisterController::class);
 Route::resource('login', LoginController::class)->only(['index', 'store']);
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::resource('/forget-password', ForgotPasswordController::class)->only('index');
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');    
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');
 
 
-// category routes 
+// category routes
 Route::resource('/courses/category', CorseController::class)->only('index');
 
 
 
-// courses list  routes 
+// courses list  routes
 Route::resource('/courses/course/course_list', CoursesListController::class)->only('index');
 Route::resource('/courses/course/course_details', CourseDetailsController::class)->only('index');
 
 
 
-// dashborad admin routes 
+// dashborad admin routes
 Route::resource('/admin', AdminController::class)->only('index');
 
 Route::resource('/admin/category/categoriesManager', CategoryManagerController::class)->only('index','store','edit','update','destroy');
@@ -60,12 +61,12 @@ Route::resource('/admin/category/categoriesManager', CategoryManagerController::
 Route::resource('/admin/course/coursesManager', CorseManagerController::class)->only('index','store','edit','update','destroy');
 Route::resource('/admin/course/addCourse', AddCourseController::class)->only('index','store','edit','update','destroy');
 
-// complaint 
-
+// complaint
 Route::resource('/complaint', ComplaintController::class)->only('index','store');
 
-
-
+//community
+Route::resource('/community', CommunityController::class)->only('index','store');
+Route::resource('/posts', \App\Http\Controllers\Community\PostController::class)->only('store');
 
 
 
