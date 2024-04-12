@@ -41,7 +41,9 @@ complate form name to insert post
 #return all question
 
 1- afficher les post et ask ===> done
-2- complet display answer for ech question
+2- complet display answer for ech question ==> done
+
+3- searsh with ajax
 
 
 
