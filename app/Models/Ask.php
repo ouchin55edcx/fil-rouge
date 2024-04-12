@@ -15,4 +15,9 @@ class Ask extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function askAnswer()
+    {
+        return $this->hasMany(AskAnswer::class, 'ask_id');
+    }
 }

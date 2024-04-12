@@ -34,3 +34,11 @@
 #-------------------------------
 
 complate form name to insert post
+
+#-----------------------------------------
+
+#i return post data to view community.index
+#return all question
+
+1- afficher les post et ask
+2- complet display answer for ech question

@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AskController extends Controller
 {
+
+    public function index()
+    {
+        $asks = Ask::with('user')->get();
+//        dd($ask);
+        return view('community.ask',compact('asks'));
+    }
     public function store(Request $request)
     {
         //validation
