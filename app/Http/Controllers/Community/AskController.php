@@ -12,8 +12,10 @@ class AskController extends Controller
 
     public function index()
     {
-        $asks = Ask::with('user')->get();
-//        dd($ask);
+        $asks = Ask::with(['user', 'askanswer' => function($query) {
+            $query->latest()->take(1);
+        }])->get();
+//        dd($asks);
         return view('community.ask',compact('asks'));
     }
     public function store(Request $request)

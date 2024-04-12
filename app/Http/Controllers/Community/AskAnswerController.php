@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ask;
 use App\Models\AskAnswer;
 use Illuminate\Http\Request;
 
@@ -11,9 +12,9 @@ class AskAnswerController extends Controller
 
     public function index()
     {
-//        $askanswer = Ask::with('askanswer','user')->get();
-
-        return view('community.askanswer');
+        $askanswer = Ask::with('askanswer','user')->get();
+//        dd($askanswer);
+        return view('community.askanswer',compact('askanswer'));
     }
 
 
@@ -33,7 +34,6 @@ class AskAnswerController extends Controller
         $askAnswer->content = $validatedData['content'];
         $askAnswer->save();
 
-        // Return response (e.g., JSON response)
         return redirect()->back()->with('success', 'Answer submitted successfully!');
     }
 }

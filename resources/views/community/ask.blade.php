@@ -112,7 +112,7 @@
                                     <h6 class="mr-2">Answer</h6>
                                 </button>
                                 <a href="{{ route('askanswers.index', ['ask_id' => $ask->id]) }}" class="underline text-blue-500 text-center">34 answers</a>
-                            </div>
+                                <p>{{ $ask->askanswer[0]->content ?? 'No answer yet' }}</p>                            </div>
                         </div>
                     @endforeach
 
