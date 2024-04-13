@@ -43,8 +43,15 @@ complate form name to insert post
 1- afficher les post et ask ===> done
 2- complet display answer for ech question ==> done
 
-3- searsh with ajax
+3- searsh with ajax ===> done
 
+---------------------------------------------
+
+1- register ==> redirection to login ==> redirection to page based in role   ==> 30 min ===> done
+
+2- home page , just fixed something in style ==> 15 min
+
+4 - complate page  style fixed ==> 45 min
 
 
 
