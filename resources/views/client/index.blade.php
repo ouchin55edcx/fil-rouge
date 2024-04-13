@@ -1,6 +1,7 @@
 @extends('layouts.navbar')
 
 @section('content')
+    @include('components._alert')
 
     <div class="h-full bg-gray-200 p-8 mt-16">
 
@@ -34,7 +35,7 @@
 
                 <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
                     <h4 class="text-xl text-gray-900 font-bold">Informations Personnelles</h4>
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{ route('client.update', $userInfo->id) }}">
                         @csrf
                         @method('PUT')
 
@@ -63,7 +64,6 @@
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Save Changes</button>
                     </form>
                 </div>
-
 
                 <div class="flex-1 bg-white rounded-lg shadow-xl p-8 mt-8">
                     <div class="flex  justify-between border-b-2 border-gray-700">

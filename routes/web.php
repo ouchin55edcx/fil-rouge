@@ -72,7 +72,7 @@ Route::resource('/askanswers', \App\Http\Controllers\Community\AskAnswerControll
 Route::resource('search', \App\Http\Controllers\search\SearchController::class)->only(['index', 'show']);
 
 
-Route::resource('/client', ClientController::class)->only(['index', 'show']);
+Route::resource('/client', ClientController::class)->only(['index', 'show','update']);
 
 
 
