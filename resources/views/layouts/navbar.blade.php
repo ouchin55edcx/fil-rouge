@@ -27,7 +27,7 @@
 
 <body class="antialiased bg-gray-200">
     <!-- component -->
-    <nav class="fixed top-0 w-full px-4 py-4 flex justify-between items-center bg-white shadow-md z-50">
+    <nav class="relative top-0 w-full px-4 py-4 flex justify-between items-center bg-white shadow-md z-50">
         <a class="text-3xl font-bold leading-none" href="/">
             <img src="/storage/images/logo.png" alt="" class="w-10">
         </a>
