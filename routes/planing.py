@@ -55,7 +55,10 @@ complate form name to insert post
 
 
 
+----------------------------------------
 
+planin of all choose to fixed in site web
+go to create fucking brief
 
 
 

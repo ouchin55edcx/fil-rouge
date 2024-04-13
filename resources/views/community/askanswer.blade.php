@@ -1,6 +1,6 @@
-@extends('layouts.navbar')
+@extends('layouts.header')
 
-@section('content')
+@section('community')
 
     <div class="container mx-auto py-8">
         <div class="max-w-4xl mx-auto">

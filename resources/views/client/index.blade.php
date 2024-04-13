@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="h-full bg-gray-200 p-8 mt-16">
+
         <div class="bg-white rounded-lg shadow-xl pb-8">
             <div class="w-full h-[250px]">
                 <img src="storage/images/image.png"
@@ -29,29 +30,38 @@
 
         <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
             <div class="w-full flex flex-col 2xl:w-1/3">
+                <!-- update.blade.php -->
+
                 <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
                     <h4 class="text-xl text-gray-900 font-bold">Informations Personnelles</h4>
-                    <ul class="mt-2 text-gray-700">
-                        <li class="flex border-y py-2">
-                            <span class="font-bold w-24">Full name:</span>
-                            <input type="text" class="text-gray-700 flex-1 outline-none" value="Mustapha Ouchin">
-                        </li>
-                        <li class="flex border-b py-2">
-                            <span class="font-bold w-24">Username :</span>
-                            <input type="text" class="text-gray-700 flex-1 outline-none"
-                                value="Ouchin55edcx">
-                        </li>
-                        <li class="flex border-b py-2">
-                            <span class="font-bold w-24">Phone :</span>
-                            <input type="text" class="text-gray-700 flex-1 outline-none" value="(123) 123-1234">
-                        </li>
-                        <li class="flex border-b py-2">
-                            <span class="font-bold w-24">Email :</span>
-                            <input type="text" class="text-gray-700 flex-1 outline-none"
-                                value="ouchinmustapha@example.com">
-                        </li>
-                    </ul>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Save change</button>
+                    <form method="POST" action="#">
+                        @csrf
+                        @method('PUT')
+
+                        <ul class="mt-2 text-gray-700">
+                            <li class="flex border-b py-2">
+                                <span class="font-bold w-24">Username :</span>
+                                <input type="text" name="username" class="text-gray-700 flex-1 outline-none"
+                                       value="{{ old('username', $userInfo->user->username) }}">
+                            </li>
+                            <li class="flex border-b py-2">
+                                <span class="font-bold w-24">Phone :</span>
+                                <input type="text" name="phone" class="text-gray-700 flex-1 outline-none"
+                                       value="{{ old('phone', $userInfo->phone_number) }}">
+                            </li>
+                            <li class="flex border-b py-2">
+                                <span class="font-bold w-24">Email :</span>
+                                <input type="text" name="email" class="text-gray-700 flex-1 outline-none"
+                                       value="{{ old('email', $userInfo->user->email) }}">
+                            </li>
+                            <li class="flex border-y py-2">
+                                <span class="font-bold w-24">Address:</span>
+                                <input type="text" name="address" class="text-gray-700 flex-1 outline-none"
+                                       value="{{ old('address', $userInfo->address) }}">
+                            </li>
+                        </ul>
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Save Changes</button>
+                    </form>
                 </div>
 
 
@@ -228,18 +238,20 @@
                     // JavaScript to toggle visibility based on selected option
                     document.querySelector('select').addEventListener('change', function() {
                         // Hide all content sections
-                        document.querySelectorAll('.hidden').forEach(function(element) {
-                            element.style.display = 'none';
+                        document.querySelectorAll('#questions, #posts').forEach(function(element) {
+                            element.classList.add('hidden');
                         });
 
                         // Get the selected option value
                         var selectedOption = this.value;
 
                         // Show the corresponding content section
-                        document.getElementById(selectedOption).style.display = 'block';
+                        if (selectedOption) {
+                            document.getElementById(selectedOption).classList.remove('hidden');
+                        }
                     });
                 </script>
-                
+
 
             </div>
 

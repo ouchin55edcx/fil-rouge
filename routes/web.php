@@ -69,7 +69,7 @@ Route::resource('/community', CommunityController::class)->only('index','store')
 Route::resource('/posts', \App\Http\Controllers\Community\PostController::class)->only('store');
 Route::resource('/asks', \App\Http\Controllers\Community\AskController::class)->only('index','store');
 Route::resource('/askanswers', \App\Http\Controllers\Community\AskAnswerController::class)->only('index','store');
-Route::resource('search', \App\Http\Controllers\search\SearchController::class)->only(['index', 'show','filtrage']);
+Route::resource('search', \App\Http\Controllers\search\SearchController::class)->only(['index', 'show']);
 
 
 Route::resource('/client', ClientController::class)->only(['index', 'show']);
