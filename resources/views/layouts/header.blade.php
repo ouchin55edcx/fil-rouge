@@ -199,7 +199,9 @@
                                 @csrf
                                 @method('POST')
 
-                                <input type="hidden" value="{{\Illuminate\Support\Facades\Auth::User()->id}}">
+                                @if(auth()->check())
+                                <input type="hidden" value="{{ Auth()->user()->id }}">
+                                @endif
                                 <input class="title bg-gray-100 border border-gray-300 p-2 mb-2 outline-none w-full" spellcheck="false" placeholder="Title" type="text" name="title">
                                 <textarea class="description bg-gray-100 sec p-2 h-40 border border-gray-300 outline-none w-full mb-4" spellcheck="false" placeholder="Describe everything about this post here" name="content"></textarea>
                                 <input type="hidden" value="">
@@ -223,7 +225,9 @@
                             <form action="{{ route('asks.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
-                                <input type="hidden" value="{{ \Illuminate\Support\Facades\Auth::user()->id }}" name="user_id">
+                                @if(auth()->check())
+                                    <input type="hidden" value="{{ Auth()->user()->id }}">
+                                @endif
                                 <input class="title bg-gray-100 border border-gray-300 p-2 mb-2 outline-none w-full" spellcheck="false" placeholder="Start your question with 'What', 'How', 'Why', etc ..." type="text" name="content">
                                 <!-- Buttons -->
                                 <div class="buttons flex">

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ask;
 use App\Models\Client;
+use App\Models\Post;
 use App\Models\User;
+use Google\Service\ShoppingContent\Resource\Pos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,13 +15,19 @@ class ClientController extends Controller
     public function index()
     {
         $userId = Auth::id();
-
         $userInfo = Client::with('user')
             ->where('user_id', $userId)
             ->first();
 
-//        dd($userInfo);
-        return view('client.index',compact('userInfo'));
+        $posts = Post::where('user_id', $userId)
+            ->withCount('comments')
+            ->get();
+
+        $questions = Ask::where('user_id', $userId)
+            ->withCount('askanswer')
+            ->get();
+//        dd($posts);
+        return view('client.index', compact('userInfo', 'posts', 'questions'));
     }
 
     public function update(Request $request, $id)
@@ -58,5 +67,55 @@ class ClientController extends Controller
 
         // Redirect back with success message
         return redirect()->route('client.index')->with('success', 'Client information updated successfully!');
+    }
+
+    // app/Http/Controllers/ClientController.php
+    public function updateImage(Request $request, $id)
+    {
+        $client = Client::findOrFail($id);
+
+        // Validate the image upload
+        $request->validate([
+            'image' => 'nullable|image|max:2048', // Max 2MB image file size
+        ]);
+
+        // If a new image is uploaded, store it and update the image record
+        if ($request->hasFile('image')) {
+            // Handle image upload
+            $imagePath = $this->storeImage($request->file('image'));
+
+            // Check if the client already has an associated image
+            if ($client->image) {
+                // Update the existing image record
+                $client->image->update([
+                    'path' => $imagePath,
+                ]);
+            } else {
+                // Create a new image record for the client
+                $client->image()->create([
+                    'path' => $imagePath,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Client image updated successfully!');
+    }
+
+    /**
+     * Store the uploaded image and return the storage path.
+     *
+     * @param \Illuminate\Http\UploadedFile $file
+     * @return string
+     */
+    private function storeImage($file)
+    {
+        // Generate a unique filename for the uploaded image
+        $imageName = time() . '_' . $file->getClientOriginalName();
+
+        // Store the image in the public storage directory (storage/app/public/images)
+        $imagePath = $file->storeAs('public/images', $imageName);
+
+        // Return the storage path for the stored image
+        return  str_replace('public/', '', $imagePath);
     }
 }

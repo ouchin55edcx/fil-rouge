@@ -20,9 +20,15 @@ class Client extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function Conmplaint()
+
+    public function image()
     {
-        return $this->hasMany(Complaint::class);
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'client_id', 'post_id');
     }
 
 

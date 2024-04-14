@@ -9,24 +9,24 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, $postId)
+    public function store(Request $request)
     {
         // Validate request data
-        $request->validate([
+        $validatedData = $request->validate([
             'content' => 'required|string|max:255',
+            'postId' => 'required|exists:posts,id', // Ensure postId exists in the 'posts' table
         ]);
 
         // Find the post by ID
-        $post = Post::findOrFail($postId);
+        $post = Post::findOrFail($validatedData['postId']);
 
-        // Create a new comment
+        // Create a new comment associated with the post
         $comment = new Comment();
-        $comment->user_id = auth()->user()->id; // Assuming authenticated user
+        $comment->user_id = auth()->id(); // Use auth()->id() to get the authenticated user's ID
         $comment->post_id = $post->id;
-        $comment->content = $request->input('content');
+        $comment->content = $validatedData['content']; // Use validated data directly
         $comment->save();
 
-        // Optionally, you can return a response or redirect back
+        // Redirect back to the post with a success message
         return redirect()->back()->with('success', 'Comment added successfully.');
-    }
-}
+    }}

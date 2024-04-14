@@ -51,4 +51,59 @@ class PostController extends Controller
         return $image->store($directory, 'public');
     }
 
+    public function like(Request $request, $postId)
+    {
+        try {
+            // Find the post by ID
+            $post = Post::findOrFail($postId);
+
+            // Get the authenticated user's client relationship
+            $client = Auth::user()->client;
+
+            // Check if the client has already liked the post
+            $isLiked = $client->likedPosts()->where('post_id', $postId)->exists();
+
+            if ($isLiked) {
+                // Unlike the post
+                $client->likedPosts()->detach($postId);
+                $message = 'Post unliked successfully.';
+            } else {
+                // Like the post
+                $client->likedPosts()->attach($postId);
+                $message = 'Post liked successfully.';
+            }
+
+            // Get updated likes count
+            $likesCount = $post->likedByClients()->count();
+
+            // Return JSON response with success message and updated likes count
+            return response()->json(['message' => $message, 'likes_count' => $likesCount], 200);
+        } catch (\Exception $e) {
+            // Handle any exceptions (e.g., post not found)
+            return response()->json(['error' => 'Failed to process like action.'], 500);
+        }
+    }
+
+
+    public function save(Request $request, $postId)
+    {
+        try {
+            $post = Post::findOrFail($postId);
+            $user = Auth::user();
+
+            if ($user->savedPosts()->where('post_id', $postId)->exists()) {
+                // Unsave the post
+                $user->savedPosts()->detach($postId);
+                $message = 'Post unsaved successfully.';
+            } else {
+                // Save the post
+                $user->savedPosts()->attach($postId);
+                $message = 'Post saved successfully.';
+            }
+
+            return response()->json(['message' => $message], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to process save action.'], 500);
+        }
+    }
 }

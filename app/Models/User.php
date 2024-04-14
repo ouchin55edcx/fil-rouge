@@ -59,4 +59,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function Conmplaint()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
+    public function savedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'saves', 'user_id', 'post_id')->withTimestamps();
+    }
 }

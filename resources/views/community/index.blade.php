@@ -72,47 +72,15 @@
                             </svg>
                             <div class="text-sm	">10 Comments</div>
                         </div>
-                        <div class="flex items-center	gap-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" viewBox="0 0 20 20"
-                                 fill="currentColor">
-                                <path fill-rule="evenodd"
-                                      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                                      clip-rule="evenodd" />
-                            </svg>
-                            <div class="text-sm">5 Likes</div>
+                        <div class="flex items-center gap-3">
+                            <button id="likeButton" class="text-red-500" onclick="toggleLike({{ $post->id }})">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div class="text-sm" id="likesCount">{{ $post->likedByClients->count() }} Likes</div>
                         </div>
-                        <div class="flex items-center	gap-3">
-                            <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1"
-                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <g id="?-Social-Media" stroke="none" stroke-width="1" fill="none"
-                                   fill-rule="evenodd">
-                                    <g id="Square_Timeline" transform="translate(-636.000000, -745.000000)">
-                                        <g id="Post-1" transform="translate(280.000000, 227.000000)">
-                                            <g id="Post-Action" transform="translate(0.000000, 495.000000)">
-                                                <g transform="translate(30.000000, 21.000000)" id="Share">
-                                                    <g transform="translate(325.000000, 1.000000)">
-                                                        <g id="ic_Share-Component/icon/ic_Share">
-                                                            <g id="Share">
-                                                                <circle id="Oval" cx="12" cy="12"
-                                                                        r="12"></circle>
-                                                                <g id="Group-24-Copy"
-                                                                   transform="translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) translate(1.000000, 1.000000)"
-                                                                   fill="#92929D">
-                                                                    <path
-                                                                        d="M4,0 C6.209139,0 8,1.790861 8,4 C8,4.1291298 7.99388117,4.25683047 7.98191762,4.38282788 L15.371607,7.98470389 C16.0745405,7.37145444 16.9938914,7 18,7 C20.209139,7 22,8.790861 22,11 C22,13.209139 20.209139,15 18,15 C16.9572434,15 16.0076801,14.6009919 15.2956607,13.9473263 L7.98384745,17.6380767 C7.99453877,17.7572882 8,17.8780063 8,18 C8,20.209139 6.209139,22 4,22 C1.790861,22 0,20.209139 0,18 C0,15.790861 1.790861,14 4,14 C5.37147453,14 6.58173814,14.690226 7.30236849,15.7422555 L14.2017356,12.2577203 C14.0708451,11.8622268 14,11.4393868 14,11 C14,10.5276126 14.0818865,10.0743509 14.2322392,9.65363512 L7.29274641,6.27172794 C6.57099412,7.31588608 5.36538874,8 4,8 C1.790861,8 0,6.209139 0,4 C0,1.790861 1.790861,0 4,0 Z M4,16 C2.8954305,16 2,16.8954305 2,18 C2,19.1045695 2.8954305,20 4,20 C5.1045695,20 6,19.1045695 6,18 C6,16.8954305 5.1045695,16 4,16 Z M18,9 C16.8954305,9 16,9.8954305 16,11 C16,12.1045695 16.8954305,13 18,13 C19.1045695,13 20,12.1045695 20,11 C20,9.8954305 19.1045695,9 18,9 Z M4,2 C2.8954305,2 2,2.8954305 2,4 C2,5.1045695 2.8954305,6 4,6 C5.1045695,6 6,5.1045695 6,4 C6,2.8954305 5.1045695,2 4,2 Z"
-                                                                        id="Combined-Shape"></path>
-                                                                </g>
-                                                            </g>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
-                            <div class="text-sm">Share</div>
-                        </div>
+
                         <div class="flex items-center	gap-3">
                             <svg width="17px" height="22px" viewBox="0 0 17 22" version="1.1"
                                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -143,7 +111,38 @@
                                     </g>
                                 </g>
                             </svg>
-                            <div class="text-sm">Saved</div>
+                            <div class="flex items-center gap-3">
+                                <button id="saveButton" class="text-blue-500" onclick="toggleSave({{ $post->id }})">
+                                    Save
+                                </button>
+                                <div class="savedMessage text-sm hidden">Saved</div>
+                            </div>
+
+                            <script>
+                                function toggleSave(postId) {
+                                    const saveButton = document.getElementById('saveButton');
+                                    const savedMessage = document.querySelector('.savedMessage');
+
+                                    fetch(`/posts/${postId}/save`, {
+                                        method: 'POST',
+                                        headers: {
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                            'Content-Type': 'application/json',
+                                        },
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.message.includes('saved')) {
+                                                saveButton.textContent = 'Unsave';
+                                                savedMessage.classList.remove('hidden');
+                                            } else {
+                                                saveButton.textContent = 'Save';
+                                                savedMessage.classList.add('hidden');
+                                            }
+                                        })
+                                        .catch(error => console.error(error));
+                                }
+                            </script>
                         </div>
                     </div>
                     <!-- Assuming you have a parent container (e.g., a <div>) to wrap the comments -->
@@ -159,74 +158,29 @@
                         @endforeach
                     </div>
                     <div class="flex items-center justify-between gap-4 mt-4">
-                        <img src="https://images.unsplash.com/photo-1595152452543-e5fc28ebc2b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
-                             class="bg-yellow-500 rounded-full w-10 h-10 object-cover border">
-                        <div class="w-full">
-                            <input type="text "
-                                   class="text-black placeholder-gray-500 border-2 border-gray-300 p-2 bg-gray-100 w-full rounded-full"
-                                   name="title" id="title" value="" required
-                                   placeholder="Add a comment...">
-                        </div>
-                        <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
-                            Send
-                        </button>
+                        <form action="{{ route('comments.store', ['postId' => $post->id]) }}" method="POST">
+                            @csrf
+                            <div class="flex items-center justify-between gap-4 mt-4">
+                                <img src="https://images.unsplash.com/photo-1595152452543-e5fc28ebc2b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+                                     class="bg-yellow-500 rounded-full w-10 h-10 object-cover border"
+                                     alt="User Image">
+                                <div class="w-full">
+                                    <input type="text"
+                                           class="text-black placeholder-gray-500 border-2 border-gray-300 p-2 bg-gray-100 w-full rounded-full"
+                                           name="content" id="content" required
+                                           placeholder="Add a comment...">
+                                </div>
+                                <button type="submit"
+                                        class="ml-4 bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
+                                    Send
+                                </button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             @endforeach
                 <!-- /Tweet -->
-
-                <!-- Tweet Q -->
-{{--                <div class="bg-white mt-4   cursor-pointer transition duration-350 ease-in-out pb-4 border-l border-r">--}}
-{{--                    <div class="flex flex-shrink-0  pb-0 border-2">--}}
-{{--                        <a href="#" class="flex-shrink-0 group block ">--}}
-{{--                            <div class="flex items-top">--}}
-{{--                                <div>--}}
-{{--                                    <img class="inline-block h-10 w-10 m-2 " src="storage/images/Group 31.png"--}}
-{{--                                    alt="" />--}}
-{{--                                </div>--}}
-{{--                                <div class="flex flex-col justify-center ">--}}
-{{--                                    <h4 class="ml-4 text-2xl font-medium">Question for you</h4>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                    <div class="m-6">--}}
-{{--                        <div class="mt-4 border-2 rounded-xl">--}}
-{{--                            <p class="m-4">How can I enhance the security of my Gmail account to protect my personal--}}
-{{--                                information and prevent unauthorized access?</p>--}}
-{{--                            <button id="answerButton" class="flex gap-2 m-4 p-2 rounded-full border-2">--}}
-{{--                                <img src="storage/images/Group 30.png" alt="" class="w-6 h-6">--}}
-{{--                                <h6 class="mr-2">Answer</h6>--}}
-{{--                            </button>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="m-6">--}}
-{{--                        <div class="mt-4 border-2 rounded-xl">--}}
-{{--                            <p class="m-4">How can I enhance the security of my Gmail account to protect my personal--}}
-{{--                                information and prevent unauthorized access?</p>--}}
-{{--                            <button id="answerButton" class="flex gap-2 m-4 p-2 rounded-full border-2">--}}
-{{--                                <img src="storage/images/Group 30.png" alt="" class="w-6 h-6">--}}
-{{--                                <h6 class="mr-2">Answer</h6>--}}
-{{--                            </button>--}}
-{{--                        </div>--}}
-{{--                        <!-- Popup container -->--}}
-{{--                        <div id="answerPopup"--}}
-{{--                            class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center ">--}}
-{{--                            <!-- Popup content -->--}}
-{{--                            <div class="bg-white rounded-lg p-6  w-[50vw]  h-[55vh]">--}}
-{{--                                <h2 class="text-lg font-semibold mb-4">Answer</h2>--}}
-{{--                                <p>Answer here...</p>--}}
-{{--                                <!-- Close button -->--}}
-{{--                                <button id="closePopup"--}}
-{{--                                    class="mt-4 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg">Close</button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                    </div>--}}
-
-{{--                </div>--}}
-                <!-- /Tweet -->
-
 
                 <!-- Spinner -->
                 <div class="flex items-center justify-center p-4 border-b border-l border-2 border-gray-200 bg-white">
@@ -315,6 +269,28 @@
                 }
             }
         });
+    </script>
+
+{{--    like --}}
+    <script>
+        function toggleLike(postId) {
+            const likeButton = document.getElementById('likeButton');
+            const likesCountElement = document.getElementById('likesCount');
+
+            fetch(`/posts/${postId}/like`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    likeButton.classList.toggle('text-red-500');
+                    likesCountElement.textContent = `${data.likes_count} Likes`;
+                })
+                .catch(error => console.error(error));
+        }
     </script>
 
 @endsection

@@ -71,9 +71,18 @@ Route::resource('/asks', \App\Http\Controllers\Community\AskController::class)->
 Route::resource('/askanswers', \App\Http\Controllers\Community\AskAnswerController::class)->only('index','store');
 Route::resource('search', \App\Http\Controllers\search\SearchController::class)->only(['index', 'show']);
 
+Route::resource('comments', \App\Http\Controllers\Community\CommentController::class)->only([
+    'store'
+])->parameters([
+    'comments' => 'postId'
+]);
 
-Route::resource('/client', ClientController::class)->only(['index', 'show','update']);
+Route::post('/posts/{postId}/save', [\App\Http\Controllers\Community\PostController::class, 'save']);
 
+
+Route::post('/posts/{post}/like', [\App\Http\Controllers\Community\PostController::class, 'like'])->name('posts.like');
+Route::resource('/client', ClientController::class)->only(['index', 'show', 'update']);
+Route::put('/client/{client}/update-image', [ClientController::class, 'updateImage'])->name('client.updateImage');
 
 
 
