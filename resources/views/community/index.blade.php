@@ -73,12 +73,12 @@
                             <div class="text-sm	">10 Comments</div>
                         </div>
                         <div class="flex items-center gap-3">
-                            <button id="likeButton" class="text-red-500" onclick="toggleLike({{ $post->id }})">
+                            <button id="likeButton{{ $post->id }}" class="text-red-500" onclick="toggleLike({{ $post->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            <div class="text-sm" id="likesCount">{{ $post->likedByClients->count() }} Likes</div>
+                            <div class="text-sm" id="likesCount{{ $post->id }}">{{ $post->likedByClients->count() }} Likes</div>
                         </div>
 
                         <div class="flex items-center	gap-3">
@@ -112,7 +112,7 @@
                                 </g>
                             </svg>
                             <div class="flex items-center gap-3">
-                                <button id="saveButton" class="text-blue-500" onclick="toggleSave({{ $post->id }})">
+                                <button id="saveButton{{ $post->id }}" class="text-blue-500" onclick="toggleSave({{ $post->id }})">
                                     Save
                                 </button>
                                 <div class="savedMessage text-sm hidden">Saved</div>
@@ -120,7 +120,7 @@
 
                             <script>
                                 function toggleSave(postId) {
-                                    const saveButton = document.getElementById('saveButton');
+                                    const saveButton = document.getElementById('saveButton'+postId);
                                     const savedMessage = document.querySelector('.savedMessage');
 
                                     fetch(`/posts/${postId}/save`, {
@@ -194,38 +194,10 @@
         </div>
     </div>
 
-<script>
-    // Function to toggle the visibility of a popup
-    function togglePopup(popupId) {
-        var popup = document.getElementById(popupId);
-        if (popup) {
-            popup.classList.toggle('hidden'); // Toggle the 'hidden' class
-        }
-    }
-</script>
 
 
-    <script>
-        // Function to show the popup
-        function showPopup() {
-            document.getElementById('answerPopup').classList.remove('hidden');
-        }
 
-        // Function to hide the popup
-        function hidePopup() {
-            document.getElementById('answerPopup').classList.add('hidden');
-        }
 
-        // Event listener for the "Answer" button
-        document.getElementById('answerButton').addEventListener('click', function() {
-            showPopup();
-        });
-
-        // Event listener for the "Close" button
-        document.getElementById('closePopup').addEventListener('click', function() {
-            hidePopup();
-        });
-    </script>
 
 
     <script>
@@ -274,8 +246,8 @@
 {{--    like --}}
     <script>
         function toggleLike(postId) {
-            const likeButton = document.getElementById('likeButton');
-            const likesCountElement = document.getElementById('likesCount');
+            const likeButton = document.getElementById('likeButton'+postId);
+            const likesCountElement = document.getElementById('likesCount'+postId);
 
             fetch(`/posts/${postId}/like`, {
                 method: 'POST',
@@ -292,5 +264,25 @@
                 .catch(error => console.error(error));
         }
     </script>
+                <script>
+                    // Function to show the popup
+                    function showPopup() {
+                        document.getElementById('answerPopup').classList.remove('hidden');
+                    }
 
+                    // Function to hide the popup
+                    function hidePopup() {
+                        document.getElementById('answerPopup').classList.add('hidden');
+                    }
+
+                    // Event listener for the "Answer" button
+                    document.getElementById('answerButton').addEventListener('click', function() {
+                        showPopup();
+                    });
+
+                    // Event listener for the "Close" button
+                    document.getElementById('closePopup').addEventListener('click', function() {
+                        hidePopup();
+                    });
+                </script>
 @endsection

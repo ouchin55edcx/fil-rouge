@@ -189,7 +189,6 @@
                         <h1>Ask</h1>
                     </a>
 
-                    <a href="{{route('asks.index')}}">ask</a>
 
                     <!-- First Popup Container -->
                     <div id="popup1" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
@@ -241,6 +240,11 @@
                 </div>
 
             </div>
+                <div class="flex justify-around bg-white mt-4 shadow-md">
+                    <a href="{{ route('community.index') }}" class="text-gray-800 hover:text-blue-500 py-2 px-4 inline-block">Posts</a>
+                    <a href="{{ route('asks.index') }}" class="text-gray-800 hover:text-blue-500 py-2 px-4 inline-block">Questions</a>
+                </div>
+
             <!-- /links -->
 
 <script>
@@ -284,6 +288,15 @@
             }
         }
     });
+</script>
+<script>
+    // Function to toggle the visibility of a popup
+    function togglePopup(popupId) {
+        var popup = document.getElementById(popupId);
+        if (popup) {
+            popup.classList.toggle('hidden'); // Toggle the 'hidden' class
+        }
+    }
 </script>
 
 @yield('community')

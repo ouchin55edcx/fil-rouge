@@ -15,6 +15,14 @@ class ClientController extends Controller
     public function index()
     {
         $userId = Auth::id();
+        $user = Auth::user();
+        $savedPosts = $user->savedPosts;
+
+        $savedPosts = Post::whereHas('savedByUsers', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
+
+
         $userInfo = Client::with('user')
             ->where('user_id', $userId)
             ->first();
@@ -26,8 +34,9 @@ class ClientController extends Controller
         $questions = Ask::where('user_id', $userId)
             ->withCount('askanswer')
             ->get();
-//        dd($posts);
-        return view('client.index', compact('userInfo', 'posts', 'questions'));
+//        dd($savedPosts);
+
+        return view('client.index', compact('userInfo', 'posts', 'questions','savedPosts'));
     }
 
     public function update(Request $request, $id)

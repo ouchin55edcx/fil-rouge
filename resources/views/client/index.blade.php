@@ -53,6 +53,7 @@
             </div>
         </div>
 
+
         <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
             <div class="w-full flex flex-col 2xl:w-1/3">
                 <!-- update.blade.php -->
@@ -87,6 +88,32 @@
                         </ul>
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Save Changes</button>
                     </form>
+                </div>
+
+{{-- saved post --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                    @foreach ($savedPosts as $post)
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            {{--                    <div class="relative">--}}
+                            {{--                        <img src="{{ $post->featured_image ?: 'https://via.placeholder.com/640x360' }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">--}}
+                            {{--                        <div class="absolute top-0 left-0 px-4 py-2 bg-gray-800 text-white text-sm font-semibold rounded-tr-lg">--}}
+                            {{--                            {{ $post->category->name }}--}}
+                            {{--                        </div>--}}
+                            {{--                    </div>--}}
+                            <div class="p-6">
+                                <h2 class="text-xl font-semibold mb-2">{{ $post->title }}</h2>
+                                <p class="text-gray-700 mb-4">{{ Str::limit($post->content, 150) }}</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="text-sm text-gray-500">
+                                        <span>By {{ $post->user->name }}</span>
+                                        <span class="mx-1">•</span>
+                                        <span>{{ $post->created_at->diffForHumans() }}</span>
+                                    </div>
+                                    <a href="#" class="text-blue-500 hover:text-blue-700">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="flex-1 bg-white rounded-lg shadow-xl p-8 mt-8">
@@ -162,7 +189,7 @@
                             </div>
                             @endforeach
                             @else
-                                <p>No Question found.</p>
+                                <p>No <Question></Question> found.</p>
                             @endif
                         </div>
 
@@ -170,62 +197,128 @@
                         <!-- Display Posts -->
                         <div id="posts" class="hidden">
                             <h5 class="font-bold text-lg text-gray-900 mb-2">Your Posts</h5>
-                            <!-- Loop through and display post titles -->
                             @if ($posts->count() > 0)
-                            @foreach($posts as $post)
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="ml-4">
+                                @foreach($posts as $post)
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <tbody class="bg-white divide-y divide-gray-200">
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        <div class="ml-4">
+                                                            <div class="text-sm text-gray-500">
+                                                                Post . posted in {{ $post->created_at->diffForHumans() }}
+                                                            </div>
+                                                            <div class="text-2xl font-bold text-gray-900">
+                                                                <a href="" class="underline text-black hover:text-blue-700">{{$post->title}}</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm text-gray-500">
-                                                        Post . posted in {{ $post->created_at->diffForHumans() }}
+                                                        Upvotes
                                                     </div>
                                                     <div class="text-2xl font-bold text-gray-900">
-                                                        <a href=""
-                                                            class="underline text-black hover:text-blue-700">{{$post->title}}</a>
+                                                        -
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-500">
-                                                Upvotes
-                                            </div>
-                                            <div class="text-2xl font-bold text-gray-900">
-                                                - </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-500">
-                                                comments
-                                            </div>
-                                            <div class="text-2xl font-bold text-gray-900">
-                                                {{$post->comments_count}}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-500">
+                                                        comments
+                                                    </div>
+                                                    <div class="text-2xl font-bold text-gray-900">
+                                                        {{$post->comments_count}}
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <button class="edit-btn" data-post-id="{{ $post->id }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#92929D">
+                                                            <path d="M0 0h24v24H0V0z" fill="none" />
+                                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM21.41 6.34l-3.75-3.75-2.53 2.54 3.75 3.75 2.53-2.54z" />
+                                                        </svg>
+                                                    </button>
 
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            <a href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                                                    viewBox="0 0 24 24" width="34px" fill="#92929D">
-                                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                                    <path
-                                                        d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                                                </svg>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                            @endforeach
+                                                    <div id="popup-{{ $post->id }}" class="fixed z-50 inset-0 overflow-y-auto hidden">
+                                                        <div class="flex items-center justify-center min-h-screen">
+                                                            <div class="bg-white rounded-lg shadow-lg p-6 relative max-w-md w-full">
+                                                                <button class="close-btn absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px" fill="currentColor">
+                                                                        <path d="M0 0h24v24H0V0z" fill="none" />
+                                                                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                                                                    </svg>
+                                                                </button>
+                                                                <h3 class="text-lg font-medium mb-4">Edit Post</h3>
+                                                                <form>
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 font-bold mb-2" for="title">
+                                                                            Title
+                                                                        </label>
+                                                                        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Enter post title" value="{{ $post->title }}">
+                                                                    </div>
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 font-bold mb-2" for="content">
+                                                                            Content
+                                                                        </label>
+                                                                        <textarea class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" rows="3" placeholder="Enter post content">{{ $post->content }}</textarea>
+                                                                    </div>
+                                                                    <div class="flex justify-end">
+                                                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                                                            Update
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <button class="delete-btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#92929D">
+                                                            <path d="M0 0h24v24H0V0z" fill="none" />
+                                                            <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
+                                                        </svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endforeach
                             @else
                                 <p>No posts found.</p>
                             @endif
-                    </div>
-                </div>
+                        </div>
+
+                        <script>
+                            const editBtns = document.querySelectorAll('.edit-btn');
+                            const closeBtns = document.querySelectorAll('.close-btn');
+
+                            editBtns.forEach(btn => {
+                                btn.addEventListener('click', () => {
+                                    const popupId = `popup-${btn.dataset.postId}`;
+                                    const popup = document.getElementById(popupId);
+                                    popup.classList.remove('hidden');
+                                });
+                            });
+
+                            closeBtns.forEach(btn => {
+                                btn.addEventListener('click', () => {
+                                    const popup = btn.closest('.fixed');
+                                    popup.classList.add('hidden');
+                                });
+                            });
+
+                            window.addEventListener('click', (event) => {
+                                const target = event.target;
+                                const popups = document.querySelectorAll('.fixed');
+
+                                popups.forEach(popup => {
+                                    if (!popup.contains(target) && !target.closest('.edit-btn')) {
+                                        popup.classList.add('hidden');
+                                    }
+                                });
+                            });
+                        </script>
 
                 <script>
                     // JavaScript to toggle visibility based on selected option
