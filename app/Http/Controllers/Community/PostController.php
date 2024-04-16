@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -45,11 +46,42 @@ class PostController extends Controller
 
     }
 
-    private function storeImage($image)
+    public function update(UpdatePostRequest $request, $id)
     {
-        $directory = 'images';
-        return $image->store($directory, 'public');
+        $validatedData = $request->validated();
+        $post = Post::findOrFail($id);
+
+        $post->title = $validatedData['title'];
+        $post->content = $validatedData['content'];
+        $post->user_id = Auth::id();
+
+        // Handle file uploads
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $file) {
+                $imagePath = $this->storeImage($file);
+                $post->image()->update([
+                    'path' => $imagePath,
+                ]);
+            }
+        }
+
+        $post->save();
+
+        return redirect()->back()->with('success', 'Post updated successfully!');
     }
+
+    private function storeImage($file)
+    {
+        // Generate a unique filename for the image
+        $filename = uniqid() . '_' . $file->getClientOriginalName();
+
+        // Store the image in the 'public/images' directory
+        $file->storeAs('public/images', $filename);
+
+        // Return the path to be stored in the database
+        return 'images/' . $filename;
+    }
+
 
     public function like(Request $request, $postId)
     {

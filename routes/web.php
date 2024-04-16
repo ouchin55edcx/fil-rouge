@@ -66,7 +66,7 @@ Route::resource('/complaint', ComplaintController::class)->only('index','store')
 
 //community
 Route::resource('/community', CommunityController::class)->only('index','store');
-Route::resource('/posts', \App\Http\Controllers\Community\PostController::class)->only('store');
+Route::resource('/posts', \App\Http\Controllers\Community\PostController::class)->only(['store', 'update']);
 Route::resource('/asks', \App\Http\Controllers\Community\AskController::class)->only('index','store');
 Route::resource('/askanswers', \App\Http\Controllers\Community\AskAnswerController::class)->only('index','store');
 Route::resource('search', \App\Http\Controllers\search\SearchController::class)->only(['index', 'show']);
@@ -77,10 +77,12 @@ Route::resource('comments', \App\Http\Controllers\Community\CommentController::c
     'comments' => 'postId'
 ]);
 
-Route::post('/posts/{postId}/save', [\App\Http\Controllers\Community\PostController::class, 'save']);
+Route::put('/posts/{id}', [\App\Http\Controllers\Community\PostController::class, 'update'])->name('posts.update');
+
 
 
 Route::post('/posts/{post}/like', [\App\Http\Controllers\Community\PostController::class, 'like'])->name('posts.like');
+Route::post('/posts/{post}/save', [\App\Http\Controllers\Community\PostController::class, 'save'])->name('posts.like');
 Route::resource('/client', ClientController::class)->only(['index', 'show', 'update']);
 Route::put('/client/{client}/update-image', [ClientController::class, 'updateImage'])->name('client.updateImage');
 

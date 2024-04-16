@@ -249,21 +249,29 @@
                                                                     </svg>
                                                                 </button>
                                                                 <h3 class="text-lg font-medium mb-4">Edit Post</h3>
-                                                                <form>
+                                                                <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    @method('PUT')
                                                                     <div class="mb-4">
                                                                         <label class="block text-gray-700 font-bold mb-2" for="title">
                                                                             Title
                                                                         </label>
-                                                                        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Enter post title" value="{{ $post->title }}">
+                                                                        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" placeholder="Enter post title" value="{{ $post->title }}">
                                                                     </div>
                                                                     <div class="mb-4">
                                                                         <label class="block text-gray-700 font-bold mb-2" for="content">
                                                                             Content
                                                                         </label>
-                                                                        <textarea class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" rows="3" placeholder="Enter post content">{{ $post->content }}</textarea>
+                                                                        <textarea class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" name="content" rows="3" placeholder="Enter post content">{{ $post->content }}</textarea>
+                                                                    </div>
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 font-bold mb-2" for="image">
+                                                                            Image
+                                                                        </label>
+                                                                        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" name="image[]" type="file">
                                                                     </div>
                                                                     <div class="flex justify-end">
-                                                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                                                                             Update
                                                                         </button>
                                                                     </div>
