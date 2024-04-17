@@ -14,6 +14,7 @@ class ClientController extends Controller
 {
     public function index()
     {
+
         $userId = Auth::id();
         $user = Auth::user();
         $savedPosts = $user->savedPosts;
@@ -29,12 +30,13 @@ class ClientController extends Controller
 
         $posts = Post::where('user_id', $userId)
             ->withCount('comments')
+            ->withCount('likedByClients')
             ->get();
 
         $questions = Ask::where('user_id', $userId)
             ->withCount('askanswer')
             ->get();
-//        dd($savedPosts);
+//        dd($posts);
 
         return view('client.index', compact('userInfo', 'posts', 'questions','savedPosts'));
     }

@@ -139,5 +139,23 @@ class PostController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // Check if the authenticated user is the owner of the post
+        if ($post->user_id !== auth()->id()) {
+            return redirect()->back()->with('error', 'You are not authorized to delete this post.');
+        }
+
+        // Delete the post
+        $post->delete();
+
+        // Delete associated images
+        $post->image()->delete();
+
+        return redirect()->back()->with('success', 'Post deleted successfully.');
+    }
+
 
 }

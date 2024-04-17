@@ -66,8 +66,8 @@ Route::resource('/complaint', ComplaintController::class)->only('index','store')
 
 //community
 Route::resource('/community', CommunityController::class)->only('index','store');
-Route::resource('/posts', \App\Http\Controllers\Community\PostController::class)->only(['store', 'update']);
-Route::resource('/asks', \App\Http\Controllers\Community\AskController::class)->only('index','store');
+Route::resource('/posts', \App\Http\Controllers\Community\PostController::class)->only(['store', 'update','destroy']);
+Route::resource('/asks', \App\Http\Controllers\Community\AskController::class)->only('index','store','update','destroy');
 Route::resource('/askanswers', \App\Http\Controllers\Community\AskAnswerController::class)->only('index','store');
 Route::resource('search', \App\Http\Controllers\search\SearchController::class)->only(['index', 'show']);
 

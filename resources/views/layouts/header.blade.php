@@ -69,7 +69,7 @@
         @endguest
         @auth
             <a href="{{route('client.index')}}" class="hidden lg:inline-block ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
-                <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400" src="https://imgs.search.brave.com/L5BVKmFq-Fc-6Ay0CSQM4ua29I67UrsE34rpF5zFwd0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAwLzY0LzY3LzI3/LzM2MF9GXzY0Njcy/NzM2X1U1a3BkR3M5/a2VVbGw4Q1JRM3Az/WWFFdjJNNnFrVlk1/LmpwZw" alt="Profile Image">
+                <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400" src="storage/{{$client->image->path}}" alt="Profile Image">
             </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -164,8 +164,9 @@
             <div class=" pb-4 border-l border-r bg-white ">
                 <div class="flex flex-shrink-0 p-4 pb-0 mt-4">
                     <div class="w-12 flex items-top">
+
                         <img class="inline-block h-10 w-10 rounded-full"
-                             src="https://images.unsplash.com/photo-1595152452543-e5fc28ebc2b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+                             src="storage/{{$client->image->path}}"
                              alt="" />
                     </div>
                     <div class="w-full">
@@ -179,13 +180,13 @@
 
                     <!-- First Trigger Link -->
                     <a href="#" class="flex gap-2" onclick="togglePopup('popup1')">
-                        <img src="storage/images/image7.png" alt="" class="w-6 h-6">
+                        <img src="storage/images/write-svgrepo-com.svg" alt="" class="w-6 h-6">
                         <h1>Post</h1>
                     </a>
 
                     <!-- Second Trigger Link -->
                     <a href="#" class="flex gap-2" onclick="togglePopup('popup2')">
-                        <img src="storage/images/image9.png" alt="" class="w-6 h-6">
+                        <img src="storage/images/question-and-asnwer-ask-question-qa-question-and-asnwer-session-svgrepo-com.svg" alt="" class="w-6 h-6">
                         <h1>Ask</h1>
                     </a>
 

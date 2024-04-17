@@ -39,4 +39,37 @@ class AskController extends Controller
 
     }
 
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $question = Ask::findOrFail($id);
+
+        // Check if the authenticated user is the owner of the question
+        if ($question->user_id !== auth()->id()) {
+            return redirect()->back()->with('error', 'You are not authorized to edit this question.');
+        }
+
+        $question->content = $validatedData['content'];
+        $question->save();
+
+        return redirect()->back()->with('success', 'Question updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $question = Ask::findOrFail($id);
+
+        // Check if the authenticated user is the owner of the question
+        if ($question->user_id !== auth()->id()) {
+            return redirect()->back()->with('error', 'You are not authorized to delete this question.');
+        }
+
+        $question->delete();
+
+        return redirect()->back()->with('success', 'Question deleted successfully.');
+    }
+
 }

@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-2 mt-2">
-                    <p class="text-2xl">Mustapha Ouchin</p>
+                    <p class="text-2xl">{{auth()->user()->username}}</p>
                     <span class="bg-blue-500 rounded-full p-1" title="Verified">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-100 h-2.5 w-2.5" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -90,7 +90,7 @@
                     </form>
                 </div>
 
-{{-- saved post --}}
+                {{--     saved post --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                     @foreach ($savedPosts as $post)
                         <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -133,66 +133,127 @@
                     <!-- Content Display Based on Selection -->
                     <div class="mt-4">
                         <!-- Display Questions -->
+                        <!-- Display Questions -->
                         <div id="questions" class="hidden">
                             <h5 class="font-bold text-lg text-gray-900 mb-2">Your Questions</h5>
-                            <!-- Loop through and display question titles -->
                             @if ($questions->count() > 0)
-
-                            @foreach($questions as $question)
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr>
-                                            <td class="px-4 md:px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <div class="ml-4">
-                                                        <div class="text-sm text-gray-500">
-                                                            Question Posted {{ $question->created_at->diffForHumans() }}
-                                                        </div>
-                                                        <div class="text-2xl font-bold text-gray-900">
-                                                            <a href="#"
-                                                                class="underline text-black hover:text-blue-700">{{ $question->content }}
-                                                            </a>
+                                @foreach($questions as $question)
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <tbody class="bg-white divide-y divide-gray-200">
+                                            <tr>
+                                                <td class="px-4 md:px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        <div class="ml-4">
+                                                            <div class="text-sm text-gray-500">
+                                                                Question Posted {{ $question->created_at->diffForHumans() }}
+                                                            </div>
+                                                            <div class="text-2xl font-bold text-gray-900">
+                                                                <a href="#" class="underline text-black hover:text-blue-700">{{ $question->content }}</a>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 md:px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-500">
-                                                    Upvotes
-                                                </div>
-                                                <div class="text-2xl font-bold text-gray-900">
-                                                    -
-                                                </div>
-                                            </td>
-                                            <td class="px-4 md:px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-500">
-                                                    Comments
-                                                </div>
-                                                <div class="text-2xl font-bold text-gray-900">
-                                                    {{$question->askanswer_count}}
-                                                </div>
-                                            </td>
-                                            <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <a href="#">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                                                        viewBox="0 0 24 24" width="34px" fill="#92929D">
-                                                        <path d="M0 0h24v24H0V0z" fill="none" />
-                                                        <path
-                                                            d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                                                    </svg>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            @endforeach
+                                                </td>
+                                                <td class="px-4 md:px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-500">
+                                                        Upvotes
+                                                    </div>
+                                                    <div class="text-2xl font-bold text-gray-900">
+                                                        -
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 md:px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-500">
+                                                        Comments
+                                                    </div>
+                                                    <div class="text-2xl font-bold text-gray-900">
+                                                        {{$question->askanswer_count}}
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <button class="edit-ask" data-post-id="{{ $question->id }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#92929D">
+                                                            <path d="M0 0h24v24H0V0z" fill="none" />
+                                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM21.41 6.34l-3.75-3.75-2.53 2.54 3.75 3.75 2.53-2.54z" />
+                                                        </svg>
+                                                    </button>
+
+                                                    <div id="popupAsk-{{ $question->id }}" class="fixed z-50 inset-0 overflow-y-auto hidden">
+                                                        <div class="flex items-center justify-center min-h-screen">
+                                                            <div class="bg-white rounded-lg shadow-lg p-6 relative max-w-md w-full">
+                                                                <button class="close-btn absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px" fill="currentColor">
+                                                                        <path d="M0 0h24v24H0V0z" fill="none" />
+                                                                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                                                                    </svg>
+                                                                </button>
+                                                                <h3 class="text-lg font-medium mb-4">Edit Question</h3>
+                                                                <form action="{{ route('asks.update', $question->id) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="mb-4">
+                                                                        <label class="block text-gray-700 font-bold mb-2" for="content">Content</label>
+                                                                        <textarea class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" name="content" rows="3" placeholder="Enter question content">{{ $question->content }}</textarea>
+                                                                    </div>
+                                                                    <div class="flex justify-end">
+                                                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Update</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <form action="{{ route('asks.destroy', $question->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="delete-btn">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#92929D">
+                                                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                                                <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endforeach
                             @else
-                                <p>No <Question></Question> found.</p>
+                                <p>No Question found.</p>
                             @endif
                         </div>
 
+                        <script>
+                            const editBtns = document.querySelectorAll('.edit-ask');
+                            const closeBtns = document.querySelectorAll('.close-btn');
+
+                            editBtns.forEach(btn => {
+                                btn.addEventListener('click', () => {
+                                    const popupId = `popupAsk-${btn.dataset.postId}`;
+                                    const popup = document.getElementById(popupId);
+                                    popup.classList.remove('hidden');
+                                });
+                            });
+
+                            closeBtns.forEach(btn => {
+                                btn.addEventListener('click', () => {
+                                    const popup = btn.closest('.fixed');
+                                    popup.classList.add('hidden');
+                                });
+                            });
+
+                            window.addEventListener('click', (event) => {
+                                const target = event.target;
+                                const popups = document.querySelectorAll('.fixed');
+
+                                popups.forEach(popup => {
+                                    if (!popup.contains(target) && !target.closest('.edit-ask')) {
+                                        popup.classList.add('hidden');
+                                    }
+                                });
+                            });
+                        </script>
 
                         <!-- Display Posts -->
                         <div id="posts" class="hidden">
@@ -220,7 +281,7 @@
                                                         Upvotes
                                                     </div>
                                                     <div class="text-2xl font-bold text-gray-900">
-                                                        -
+                                                        {{$post->liked_by_clients_count}}
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -280,12 +341,16 @@
                                                         </div>
                                                     </div>
 
-                                                    <button class="delete-btn">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#92929D">
-                                                            <path d="M0 0h24v24H0V0z" fill="none" />
-                                                            <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
-                                                        </svg>
-                                                    </button>
+                                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="delete-btn">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#92929D">
+                                                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                                                <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                             </tbody>
