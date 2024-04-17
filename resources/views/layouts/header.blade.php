@@ -69,7 +69,7 @@
         @endguest
         @auth
             <a href="{{route('client.index')}}" class="hidden lg:inline-block ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
-                <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400" src="storage/{{$client->image->path}}" alt="Profile Image">
+                <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400" src="https://imgs.search.brave.com/L5BVKmFq-Fc-6Ay0CSQM4ua29I67UrsE34rpF5zFwd0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAwLzY0LzY3LzI3/LzM2MF9GXzY0Njcy/NzM2X1U1a3BkR3M5/a2VVbGw4Q1JRM3Az/WWFFdjJNNnFrVlk1/LmpwZw" alt="Profile Image">
             </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -164,18 +164,89 @@
             <div class=" pb-4 border-l border-r bg-white ">
                 <div class="flex flex-shrink-0 p-4 pb-0 mt-4">
                     <div class="w-12 flex items-top">
-
                         <img class="inline-block h-10 w-10 rounded-full"
-                             src="storage/{{$client->image->path}}"
+                             src="https://images.unsplash.com/photo-1595152452543-e5fc28ebc2b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
                              alt="" />
                     </div>
                     <div class="w-full">
-                        <input type="text"
-                               class="text-black placeholder-gray-500 border-2 border-black p-2 bg-[#EFEFEF] w-full rounded-full"
-                               name="title" id="title" value="" required
-                               placeholder="what do you want to share?">
+                        <input type="text" id="searchInput" class="text-black placeholder-gray-500 border-2 border-black p-2 bg-[#EFEFEF] w-full rounded-full" placeholder="Search posts...">
+                    </div>
+
+                    <div id="searchResults"></div>
+                </div>
+                <script !src="">
+                    const searchInput = document.getElementById('searchInput');
+                    const searchResults = document.getElementById('searchResults');
+
+                    searchInput.addEventListener('input', function() {
+                        const searchQuery = this.value.trim();
+
+                        if (searchQuery.length > 0) {
+                            searchPosts(searchQuery);
+                        } else {
+                            searchResults.innerHTML = '';
+                        }
+                    });
+
+                    function searchPosts(query) {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('GET', `/postSearch?query=${encodeURIComponent(query)}`, true);
+
+                        xhr.onload = function() {
+                            if (this.status === 200) {
+                                const posts = JSON.parse(this.responseText);
+                                displaySearchResults(posts);
+                            }
+                        };
+
+                        xhr.send();
+                    }
+
+                    function displaySearchResults(posts) {
+                        let html = '';
+
+                        if (posts.length > 0) {
+                            posts.forEach(post => {
+                                html += `
+                <!-- User Post -->
+                <div class="border max-w-screen-md bg-white mt-6 p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="gap-3.5 flex items-center">
+                            <img src="storage/images/v56_47.png" class="object-cover bg-yellow-500 rounded-full w-10 h-10"/>
+                            <div class="flex flex-col">
+                                <time datetime="${post.created_at}" class="text-gray-400 text-xs">${formatDate(post.created_at)}</time>
+                            </div>
+                        </div>
+                        <div class="bg-gray-100 rounded-full h-3.5 flex items-center justify-center">
+                            <!-- Icon for actions -->
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="34px" fill="#92929D">
+                                <path d="M0 0h24v24H0V0z" fill="none"/>
+                                <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="whitespace-pre-wrap mt-7 font-bold"># Info</div>
+                    <div class="whitespace-pre-wrap mt-7 font-medium">${post.title}</div>
+                    <div class="mt-4">
+                        <p>${post.content}</p>
                     </div>
                 </div>
+            `;
+                            });
+                        } else {
+                            html = '<p>No posts found.</p>';
+                        }
+
+                        searchResults.innerHTML = html;
+                    }
+
+                    function formatDate(dateString) {
+                        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                        const date = new Date(dateString);
+                        return date.toLocaleDateString('en-US', options);
+                    }
+
+                </script>
                 <div class="flex justify-around  items-center mt-4">
 
                     <!-- First Trigger Link -->

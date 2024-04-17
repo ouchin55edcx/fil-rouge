@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class AskAnswerController extends Controller
 {
 
-    public function index()
+    public function index(Request $request, $ask_id)
     {
-        $askanswer = Ask::with('askanswer','user')->get();
+        $askanswer = Ask::with('askanswer','user')->where('id',$ask_id)->get();
 //        dd($askanswer);
         return view('community.askanswer',compact('askanswer'));
     }

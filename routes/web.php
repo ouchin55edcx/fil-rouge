@@ -76,10 +76,13 @@ Route::resource('comments', \App\Http\Controllers\Community\CommentController::c
 ])->parameters([
     'comments' => 'postId'
 ]);
+Route::get('/askanswers/{ask_id}', [\App\Http\Controllers\Community\AskAnswerController::class,'index'])->name('askanswers.index');
 
 Route::put('/posts/{id}', [\App\Http\Controllers\Community\PostController::class, 'update'])->name('posts.update');
 
-
+// routes/web.php
+// routes/web.php
+Route::get('/postSearch', [\App\Http\Controllers\Community\PostController::class, 'postSearch'])->name('posts.search');
 
 Route::post('/posts/{post}/like', [\App\Http\Controllers\Community\PostController::class, 'like'])->name('posts.like');
 Route::post('/posts/{post}/save', [\App\Http\Controllers\Community\PostController::class, 'save'])->name('posts.like');

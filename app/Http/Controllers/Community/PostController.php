@@ -157,5 +157,20 @@ class PostController extends Controller
         return redirect()->back()->with('success', 'Post deleted successfully.');
     }
 
+    public function postSearch(Request $request)
+    {
+        $query = $request->query('query');
+
+        if ($query) {
+            $posts = Post::where('title', 'like', "%$query%")
+                ->orWhere('content', 'like', "%$query%")
+                ->get();
+
+            return response()->json($posts);
+        }
+
+        return response()->json([]);
+    }
+
 
 }
