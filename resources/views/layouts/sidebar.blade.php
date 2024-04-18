@@ -9,6 +9,7 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- My CSS -->
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -60,6 +61,7 @@
             background: var(--grey);
             overflow-x: hidden;
         }
+
 
 
 
@@ -503,7 +505,7 @@
                 <img src="img/people.png">
             </a>
         </nav>
-        
+
         @yield('content')
 
 
@@ -554,12 +556,12 @@
             function openModal() {
                 document.getElementById('modal').classList.remove('hidden');
             }
-    
+
             function closeModal() {
                 document.getElementById('modal').classList.add('hidden');
             }
         </script>
-    
+
 </body>
 
 </html>

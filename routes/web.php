@@ -59,8 +59,13 @@ Route::resource('/admin', AdminController::class)->only('index');
 Route::resource('/admin/category/categoriesManager', CategoryManagerController::class)->only('index','store','edit','update','destroy');
 
 Route::resource('/admin/course/coursesManager', CorseManagerController::class)->only('index','store','edit','update','destroy');
-Route::resource('/admin/course/addCourse', AddCourseController::class)->only('index', 'store', 'edit', 'update', 'destroy');
-Route::post('/admin/course/addCourse', [AddCourseController::class, 'store'])->name('admin.course.addCourse.store');
+
+Route::resource('/admin/course/addTask', \App\Http\Controllers\Admin\course\AddTaskController::class)->only('index', 'store', 'edit', 'update', 'destroy');
+Route::resource('/admin/course/addCourse', \App\Http\Controllers\Admin\course\AddCourseController::class)->only('index', 'store', 'edit', 'update', 'destroy');
+
+
+Route::post('/admin/course/addTask', [\App\Http\Controllers\Admin\course\AddTaskController::class, 'store'])->name('admin.course.addTask.store');
+Route::post('/admin/course/addCourse', [\App\Http\Controllers\Admin\course\AddCourseController::class, 'store'])->name('admin.course.addCourse.store');
 // complaint
 Route::resource('/complaint', ComplaintController::class)->only('index','store');
 
@@ -80,7 +85,6 @@ Route::get('/askanswers/{ask_id}', [\App\Http\Controllers\Community\AskAnswerCon
 
 Route::put('/posts/{id}', [\App\Http\Controllers\Community\PostController::class, 'update'])->name('posts.update');
 
-// routes/web.php
 // routes/web.php
 Route::get('/postSearch', [\App\Http\Controllers\Community\PostController::class, 'postSearch'])->name('posts.search');
 

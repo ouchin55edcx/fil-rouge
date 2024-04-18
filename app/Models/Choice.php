@@ -9,11 +9,11 @@ class Choice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['choice_text','is_correct','question_id'];
+    protected $fillable = ['choice_text','is_correct','task_id'];
 
 
     public function task()
     {
-        return $this->belongsTo(Task::class, 'question_id');
+        return $this->belongsTo(Task::class, 'task_id');
     }
 }

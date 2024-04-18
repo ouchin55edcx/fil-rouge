@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('choice_text');
             $table->boolean('is_correct');
-            $table->unsignedBigInteger('question_id');
+            $table->unsignedBigInteger('task_id');
             $table->timestamps();
 
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
         });
     }
 

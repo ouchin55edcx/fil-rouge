@@ -22,6 +22,7 @@
         #menu-toggle:checked+#menu {
             display: block;
         }
+
     </style>
 </head>
 

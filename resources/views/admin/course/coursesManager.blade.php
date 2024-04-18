@@ -8,10 +8,21 @@
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-bold">Categories</h1>
 
-                <a href="{{route('addCourse.index')}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onclick="openModal()">
-                    + Add Category
-                </a>
+                <div id="button-container" class="flex flex-col items-between gap-2">
+                    <button id="main-button" class="rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 flex items-center">
+                        <span class="material-icons ">add</span>
+                    </button>
+                    <div id="additional-buttons" class="hidden ml-2 flex flex-col gap-2">
+                        <a href="{{route('addCourse.index')}}" class="rounded-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 flex items-center">
+                            <span class="material-icons mr-2">assignment</span>
+                            Add Course
+                        </a>
+                        <a href="{{route('addTask.index')}}" class="rounded-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 ml-2 flex items-center">
+                            <span class="material-icons mr-2">add</span>
+                            Add Tasks
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="bg-white shadow-md rounded">
@@ -66,4 +77,13 @@
         </div>
 
     </div>
+
+    <script !src="">
+        const mainButton = document.getElementById('main-button');
+        const additionalButtons = document.getElementById('additional-buttons');
+
+        mainButton.addEventListener('click', function() {
+            additionalButtons.classList.toggle('hidden');
+        });
+    </script>
 @endsection
