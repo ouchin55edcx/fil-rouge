@@ -1,154 +1,183 @@
 @extends('layouts.sidebar')
 
 @section('content')
-    <div class="m-8 bg-white rounded-lg shadow-md p-8">
-        <h2 class="text-2xl font-bold mb-4 text-gray-800">Add Course</h2>
-        <form id="courseForm" name="course-form" method="POST" action="{{ route('addCourse.store') }}"
-              enctype="multipart/form-data">
-            @csrf
-            <!-- Lesson Title -->
-            <div class="mb-4">
-                <label for="lessonTitle" class="block font-medium text-gray-700">Lesson Title</label>
-                <input type="text" name="title" id="lessonTitle"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                       required>
+    <div id="multi-step-form" class="max-w-3xl mx-auto">
+        <div class="mb-8">
+            <ul class="flex justify-between items-center">
+                <li class="step-item">
+                    <div class="step-counter">1</div>
+                    <span class="step-label">Course Details</span>
+                </li>
+                <li class="step-item">
+                    <div class="step-counter">2</div>
+                    <span class="step-label">Task Details</span>
+                </li>
+            </ul>
+            <div class="progress-bar">
+                <div class="progress" style="width: 0%;"></div>
             </div>
+        </div>
 
-            <!-- Lesson Description -->
-            <div class="mb-4">
-                <label for="lessonDesc" class="block font-medium text-gray-700">Lesson Description</label>
-                <textarea name="description" id="lessonDesc"
-                          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                          rows="3" required></textarea>
-            </div>
+        <!-- Step 1: Course Details -->
+        <div id="step-1" class="form-step">
+            <h2 class="text-2xl font-bold mb-4">Course Details</h2>
+            // Form
+            <form method="POST" action="{{ route('admin.course.addCourse.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-4">
+                    <label for="course-title" class="block font-bold mb-2">Title:</label>
+                    <input type="text" name="title" id="course-title" class="border border-gray-400 px-3 py-2 w-full" required>
+                </div>
+                <div class="mb-4">
+                    <label for="course-image" class="block font-bold mb-2">Image:</label>
+                    <input type="file" name="image" id="course-image" accept="image/*" class="border border-gray-400 px-3 py-2 w-full" required>
+                </div>
 
-            <!-- Category Selection -->
-            <div class="mb-4">
-                <label for="category" class="block font-medium text-gray-700">Category</label>
-                <select name="category_id" id="category"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="" disabled selected>Select Category</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div class="mb-4">
+                    <label for="course-category" class="block font-bold mb-2">Category:</label>
+                    <select name="category" id="course-category" class="border border-gray-400 px-3 py-2 w-full" required>
+                        <option value="" disabled selected>Select a category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="course-description" class="block font-bold mb-2">Description:</label>
+                    <textarea name="description" id="course-description" class="border border-gray-400 px-3 py-2 w-full" required></textarea>
+                </div>
+                <button type="submit" id="next-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Next</button>
+            </form>
+        </div>
 
-            <!-- Lesson Image Upload -->
-            <div class="mb-4">
-                <label for="lessonImage" class="block font-medium text-gray-700">Lesson Image</label>
-                <input type="file" name="image" id="lessonImage"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-            </div>
+        <!-- Step 2: Task Details -->
+        <!-- Step 2: Task Details -->
+{{--        <div id="step-2" class="form-step hidden">--}}
+{{--            <h2 class="text-2xl font-bold mb-4">Task Details</h2>--}}
+{{--            <form method="POST" action="{{ route('admin.course.addCourse.store') }}" enctype="multipart/form-data">--}}
+{{--                @csrf--}}
+{{--                <div id="task-forms">--}}
+{{--                    <!-- Task forms will be added here dynamically -->--}}
+{{--                </div>--}}
+{{--                <button type="button" id="add-task-form" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4">Add Task</button>--}}
+{{--                <div class="flex justify-between">--}}
+{{--                    <button type="button" id="prev-btn" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Previous</button>--}}
+{{--                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>--}}
+{{--                </div>--}}
+{{--            </form>--}}
 
-            <!-- Add Task Button -->
-            <button type="button" id="addTaskButton"
-                    class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add
-                Task
-            </button>
+{{--            <!-- Display validation errors -->--}}
+{{--            @if ($errors->any())--}}
+{{--                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4">--}}
+{{--                    <strong>Whoops!</strong> There were some problems with your input.--}}
+{{--                    <ul>--}}
+{{--                        @foreach ($errors->all() as $error)--}}
+{{--                            <li>{{ $error }}</li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <script>--}}
+{{--        const formSteps = document.querySelectorAll('.form-step');--}}
+{{--        const nextBtn = document.getElementById('next-btn');--}}
+{{--        const prevBtn = document.getElementById('prev-btn');--}}
+{{--        const progressBar = document.querySelector('.progress');--}}
+{{--        const stepItems = document.querySelectorAll('.step-item');--}}
+{{--        const taskFormsContainer = document.getElementById('task-forms');--}}
+{{--        const addTaskFormBtn = document.getElementById('add-task-form');--}}
+{{--        let currentStep = 0;--}}
 
-            <!-- Task Container -->
-            <div id="taskContainer" class="mb-8">
-                <!-- Task forms will be added here dynamically -->
-            </div>
+{{--        // Function to create a new task form--}}
+{{--        function createTaskForm() {--}}
+{{--            const taskForm = document.createElement('div');--}}
+{{--            taskForm.classList.add('mb-4');--}}
 
-            <!-- Save Lesson Button -->
-            <button type="submit" id="saveLesson"
-                    class="inline-flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Save
-                Lesson
-            </button>
-        </form>
-    </div>
+{{--            taskForm.innerHTML = `--}}
+{{--<form class="bg-gray-300 p-4 rounded-lg" >--}}
+{{--  <div class="">--}}
+{{--    <label for="task-title" class="block font-bold mb-2">Title:</label>--}}
+{{--    <input type="text" id="task-title" class="task-title border border-gray-400 px-3 py-2 w-full" required>--}}
+{{--  </div>--}}
+{{--  <div class="mb-4">--}}
+{{--    <label for="task-content" class="block font-bold mb-2">Content:</label>--}}
+{{--    <textarea id="task-content" class="task-content border border-gray-400 px-3 py-2 w-full" required></textarea>--}}
+{{--  </div>--}}
+{{--  <div class="mb-4">--}}
+{{--    <label for="task-question" class="block font-bold mb-2">Question:</label>--}}
+{{--    <input type="text" id="task-question" class="task-question border border-gray-400 px-3 py-2 w-full" required>--}}
+{{--  </div>--}}
+{{--  <div class="mb-4">--}}
+{{--    <label class="block font-bold mb-2">Options:</label>--}}
+{{--    <div class="task-options flex flex-wrap mb-2">--}}
+{{--      <input type="text" class="option-input border border-gray-400 px-3 py-2 mr-2 mb-2" required>--}}
+{{--    </div>--}}
+{{--    <button type="button" class="add-option bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Option</button>--}}
+{{--  </div>--}}
+{{--  <div class="mb-4">--}}
+{{--    <label for="correct-choice" class="block font-bold mb-2">Correct Choice:</label>--}}
+{{--    <input type="text" id="correct-choice" class="correct-choice border border-gray-400 px-3 py-2 w-full" required>--}}
+{{--  </div>--}}
+{{--  <button type="button" class="remove-task bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove Task</button>--}}
+{{--</form>`;--}}
 
-    <script>
-        // document.addEventListener('DOMContentLoaded', function () {
-            let taskCount = 0;
+{{--            taskFormsContainer.appendChild(taskForm);--}}
 
-            function addTaskForm() {
-                const taskContainer = document.getElementById('taskContainer');
-                const taskForm = document.createElement('form');
-                taskForm.classList.add('mb-4', 'bg-gray-100', 'p-4', 'rounded-md', 'addedForm');
+{{--            // Add event listener for the Add Option button--}}
+{{--            const addOptionBtn = taskForm.querySelector('.add-option');--}}
+{{--            addOptionBtn.addEventListener('click', () => {--}}
+{{--                const optionsContainer = taskForm.querySelector('.task-options');--}}
+{{--                const newOption = document.createElement('input');--}}
+{{--                newOption.type = 'text';--}}
+{{--                newOption.className = 'option-input border border-gray-400 px-3 py-2 mr-2 mb-2';--}}
+{{--                newOption.required = true;--}}
+{{--                optionsContainer.appendChild(newOption);--}}
+{{--            });--}}
 
-                taskCount++;
+{{--            // Add event listener for the Remove Task button--}}
+{{--            const removeTaskBtn = taskForm.querySelector('.remove-task');--}}
+{{--            removeTaskBtn.addEventListener('click', () => {--}}
+{{--                taskFormsContainer.removeChild(taskForm);--}}
+{{--            });--}}
+{{--        }--}}
 
-                taskForm.innerHTML = `
-                    <div class="flex items-center mb-2">
-                        <h3 class="text-lg font-semibold mr-2">Task ${taskCount}:</h3>
-                        <button type="button" class="add-question-btn inline-flex justify-center rounded-md border border-transparent bg-purple-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2" onclick="addQuestion(${taskCount})">Add Question</button>
-                    </div>
-                    <div class="mb-2">
-                        <label for="taskTitle${taskCount}" class="block font-medium text-gray-700">Task Title</label>
-                        <input type="text" id="taskTitle${taskCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                    </div>
-                    <div class="mb-2">
-                        <label for="taskContent${taskCount}" class="block font-medium text-gray-700">Task Content</label>
-                        <textarea id="taskContent${taskCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-2">
-                        <label for="taskImage${taskCount}" class="block font-medium text-gray-700">Task Image</label>
-                        <input type="file" id="taskImage${taskCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    </div>
-                    <div id="questionContainer${taskCount}"></div>
-                    <button type="button" class="remove-task-btn inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onclick="removeTaskForm(this);">Remove Task</button>
-                `;
+{{--        // Function to show the current step and hide the others--}}
+{{--        function showStep(n) {--}}
+{{--            formSteps.forEach((step, index) => {--}}
+{{--                if (index === n) {--}}
+{{--                    step.classList.remove('hidden');--}}
+{{--                    stepItems[index].classList.add('active');--}}
+{{--                } else {--}}
+{{--                    step.classList.add('hidden');--}}
+{{--                    stepItems[index].classList.remove('active');--}}
+{{--                }--}}
+{{--            });--}}
+{{--            currentStep = n;--}}
+{{--            updateProgressBar();--}}
+{{--        }--}}
 
-                taskContainer.appendChild(taskForm);
-                document.getElementById('saveLesson').disabled = false;
-            }
+{{--        // Function to update the progress bar--}}
+{{--        function updateProgressBar() {--}}
+{{--            const progress = ((currentStep + 1) / formSteps.length) * 100;--}}
+{{--            progressBar.style.width = `${progress}%`;--}}
+{{--        }--}}
 
-            function addQuestion(taskIndex) {
-                const questionContainer = document.getElementById(`questionContainer${taskIndex}`);
-                const questionForm = document.createElement('div');
-                questionForm.classList.add('mb-4', 'bg-gray-200', 'p-4', 'rounded-md');
+{{--        // Event listener for the Next button--}}
+{{--        nextBtn.addEventListener('click', () => {--}}
+{{--            showStep(currentStep + 1);--}}
+{{--        });--}}
 
-                questionForm.innerHTML = `
-                    <div class="mb-2">
-                        <label for="questionText" class="block font-medium text-gray-700">Question</label>
-                        <input type="text" id="questionText" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                    </div>
-                    <div class="mb-2">
-                        <label for="choice1" class="block font-medium text-gray-700">Choice 1</label>
-                        <input type="text" id="choice1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                    </div>
-                    <div class="mb-2">
-                        <label for="choice2" class="block font-medium text-gray-700">Choice 2</label>
-                        <input type="text" id="choice2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                    </div>
-                    <div class="mb-2">
-                        <label for="choice3" class="block font-medium text-gray-700">Choice 3</label>
-                        <input type="text" id="choice3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                    </div>
-                    <div class="mb-2">
-                        <label for="choice4" class="block font-medium text-gray-700">Choice 4</label>
-                        <input type="text" id="choice4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                    </div>
-                    <div class="mb-2">
-                        <label for="correctChoice" class="block font-medium text-gray-700">Correct Choice</label>
-                        <select id="correctChoice" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                            <option value="">Select the correct choice</option>
-                            <option value="1">Choice 1</option>
-                            <option value="2">Choice 2</option>
-                            <option value="3">Choice 3</option>
-                            <option value="4">Choice 4</option>
-                        </select>
-                    </div>
-                    <button class="remove-question-btn inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onclick="removeQuestionForm(this)">Remove Question</button>
-                `;
+{{--        // Event listener for the Previous button--}}
+{{--        prevBtn.addEventListener('click', () => {--}}
+{{--            showStep(currentStep - 1);--}}
+{{--        });--}}
 
-                questionContainer.appendChild(questionForm);
-            }
+{{--        // Event listener for the Add Task button--}}
+{{--        addTaskFormBtn.addEventListener('click', createTaskForm);--}}
 
-            function removeTaskForm(taskForm) {
-                const taskContainer = taskForm.closest('form');
-                taskContainer.remove();
+{{--        // Show the first step initially--}}
+{{--        showStep(0);--}}
+{{--    </script>--}}
 
-                // Disable the "Save Lesson" button if there are no tasks
-                if (taskContainer.children.length === 0) {
-                    document.getElementById('saveLesson').disabled = true;
-                }
-            }
-
-            document.getElementById('addTaskButton').addEventListener('click', addTaskForm);
-        // });
-    </script>
 @endsection

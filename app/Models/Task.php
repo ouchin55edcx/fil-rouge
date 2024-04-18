@@ -10,11 +10,16 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'lesson_id'];
+    protected $fillable = ['title', 'content', 'question', 'lesson_id'];
 
     public function lesson()
     {
         return $this->belongsTo(Lesson::class);
+    }
+
+    public function choices()
+    {
+        return $this->hasMany(Choice::class, 'question_id');
     }
 
     public function image()
@@ -22,9 +27,5 @@ class Task extends Model
         return $this->hasOne(Image::class, 'imageable');
     }
 
-    public function questions()
-    {
-        return $this->hasMany(Question::class);
-    }
 
 }

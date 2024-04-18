@@ -12,8 +12,8 @@ class Choice extends Model
     protected $fillable = ['choice_text','is_correct','question_id'];
 
 
-    public function question()
+    public function task()
     {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(Task::class, 'question_id');
     }
 }

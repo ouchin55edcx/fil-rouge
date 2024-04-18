@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('content');
-            $table->unsignedBigInteger('lesson_id'); 
+            $table->string('question');
+            $table->unsignedBigInteger('lesson_id');
             $table->timestamps();
-    
+
             $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
         });
     }

@@ -59,8 +59,8 @@ Route::resource('/admin', AdminController::class)->only('index');
 Route::resource('/admin/category/categoriesManager', CategoryManagerController::class)->only('index','store','edit','update','destroy');
 
 Route::resource('/admin/course/coursesManager', CorseManagerController::class)->only('index','store','edit','update','destroy');
-Route::resource('/admin/course/addCourse', AddCourseController::class)->only('index','store','edit','update','destroy');
-
+Route::resource('/admin/course/addCourse', AddCourseController::class)->only('index', 'store', 'edit', 'update', 'destroy');
+Route::post('/admin/course/addCourse', [AddCourseController::class, 'store'])->name('admin.course.addCourse.store');
 // complaint
 Route::resource('/complaint', ComplaintController::class)->only('index','store');
 

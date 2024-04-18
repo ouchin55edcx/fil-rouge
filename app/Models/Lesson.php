@@ -10,7 +10,7 @@ class Lesson extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['lessonTitle', 'lessonDesc', 'lesson_id'];
+    protected $fillable = ['title', 'description', 'category_id'];
 
     public function image(): MorphOne
     {
