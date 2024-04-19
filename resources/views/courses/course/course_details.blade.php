@@ -20,9 +20,7 @@
 <section>
     <!-- Component -->
     <div class="bg-white mx-auto p-6">
-        <div class="bg-[#CBCBCB] rounded h-4 mb-4" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-            <div class="bg-[#CBCBCB] rounded h-4 text-center text-white text-sm transition" style="width: 0%;" x-text="0%">0%</div>
-        </div>
+
 
         @foreach ($tasks as $task)
             <div class="mb-4">
@@ -58,15 +56,25 @@
                             <p class="ml-8">{{ $task->question }}</p>
                             <ul class="flex flex-col gap-4 ml-16">
                                 @foreach ($task->choices as $choice)
+                                    @php
+                                        $isCorrect = $choice->is_correct ? '1' : '0';
+                                        $taskId = $task->id;
+                                    @endphp
+
                                     <li>
                                         <button class="answer-button px-4 py-2 rounded-md focus:outline-none border-2 border-blue-500 shadow-md bg-white transition-colors duration-300"
-                                                data-is-correct="{{ $choice->is_correct ? '1' : '0' }}"
-                                                data-task-id="{{ $task->id }}"
-                                                data-answer="{{ $choice->is_correct ? '1' : '0' }}">
+                                                data-is-correct="{{ $isCorrect }}"
+                                                data-task-id="{{ $taskId }}"
+                                                data-answer="{{ $isCorrect }}"
+                                                @if ($task->is_complete)
+                                                    disabled
+                                            @endif
+                                        >
                                             {{ $choice->choice_text }}
                                         </button>
                                     </li>
                                 @endforeach
+
                             </ul>
                         </div>
                     </div>
@@ -76,35 +84,48 @@
     </div>
 </section>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.answer-button').click(function() {
-            var isCorrect = $(this).data('is-correct');
-            var taskId = $(this).data('task-id');
-            var answer = $(this).data('answer');
+    document.addEventListener('DOMContentLoaded', function() {
+        const answerButtons = document.querySelectorAll('.answer-button');
 
-            // Send AJAX request to submit the answer
-            $.ajax({
-                url: '/submit/answer',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    task_id: taskId,
-                    answer: answer
-                },
-                success: function(response) {
-                    alert('Answer submitted successfully!');
-                    // Optionally, you can update UI based on the response
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                    alert('Failed to submit answer. Please try again.');
-                }
+        answerButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const isCorrect = this.getAttribute('data-is-correct');
+                const taskId = this.getAttribute('data-task-id');
+                const answer = this.getAttribute('data-answer');
+
+                // Send AJAX request to submit the answer
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/submit/answer');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        alert('Answer submitted successfully!');
+
+                        // Check if the answer is correct
+                        if (isCorrect === '1') {
+                            // Disable all answer buttons for this task
+                            const taskAnswerButtons = document.querySelectorAll('.answer-button[data-task-id="' + taskId + '"]');
+                            taskAnswerButtons.forEach(btn => {
+                                btn.disabled = true;
+                            });
+                        }
+
+                        // Optionally, you can update UI based on the response
+                    } else {
+                        console.error('Failed to submit answer. Please try again.');
+                    }
+                };
+                xhr.onerror = function() {
+                    console.error('Failed to submit answer. Please try again.');
+                };
+                xhr.send(JSON.stringify({ task_id: taskId, answer: answer }));
             });
         });
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const toggleButtons = document.querySelectorAll('.toggleButton');
