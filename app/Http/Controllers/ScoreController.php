@@ -13,32 +13,24 @@ class ScoreController extends Controller
     {
         $validatedData = $request->validate([
             'task_id' => 'required|exists:tasks,id',
-            'answer' => 'required|in:0,1', // Ensure the answer is either 0 or 1
+            'answer' => 'required|boolean',
         ]);
 
+        // Logic to process the answer and determine correctness
         $taskId = $validatedData['task_id'];
-        $isCorrect = (bool) $validatedData['answer'];
-
-        // Find the task
-        $task = Task::find($taskId);
-
-        if (!$task) {
-            return response()->json(['error' => 'Task not found'], 404);
-        }
+        $isCorrect = $validatedData['answer'];
 
         // Update task completion status if the answer is correct
         if ($isCorrect) {
-            $task->is_complete = true;
-            $task->save();
-
-            // Add score logic (example)
-            $user = auth()->user();
-            $score = Score::firstOrNew(['user_id' => $user->id]);
-            $score->score += 5; // Increment score by 5
-            $score->save();
+            $task = Task::find($taskId);
+            if ($task) {
+                $task->is_complete = true;
+                $task->save();
+            }
         }
 
-        return response()->json(['success' => true]);
+        // Return a response indicating success or failure
+        return response()->json(['message' => 'Answer processed successfully']);
     }
 
 }
