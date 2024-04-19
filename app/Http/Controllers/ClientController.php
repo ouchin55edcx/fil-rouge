@@ -50,7 +50,7 @@ class ClientController extends Controller
             'progress' => $score->progress,
         ] : null;
 
-        dd($userScore);
+//        dd($userScore);
         return view('client.index', compact('userInfo', 'posts', 'questions','savedPosts','userScore'));
     }
 

@@ -110,8 +110,8 @@
                             taskAnswerButtons.forEach(btn => {
                                 btn.disabled = true;
                             });
+                        window.location.reload();
                         }
-
                         // Optionally, you can update UI based on the response
                     } else {
                         console.error('Failed to submit answer. Please try again.');
@@ -121,6 +121,7 @@
                     console.error('Failed to submit answer. Please try again.');
                 };
                 xhr.send(JSON.stringify({ task_id: taskId, answer: answer }));
+
             });
         });
     });
