@@ -13,15 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('content');
-            $table->string('question');
-            $table->boolean('is_complete')->default(false); // Add is_complete column
-            $table->unsignedBigInteger('lesson_id');
+
+
+            $table->integer('score')->default(0);
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedBigInteger('lesson_id')->nullable();
+            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('set null');
             $table->timestamps();
-            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+
+
         });
     }
 
@@ -32,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('scores');
     }
 };

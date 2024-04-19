@@ -44,12 +44,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="correct-choice" class="block font-bold mb-2">Correct Choice:</label>
-                    <select id="correct-choice" name="correct-choice" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        <option value="" disabled selected>Select correct choice</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <!-- Add more options as needed -->
-                    </select>
+                    <input type="text" id="correct-choice" name="correct-choice" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                 </div>
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
             </form>

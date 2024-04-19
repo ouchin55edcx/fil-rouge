@@ -32,6 +32,8 @@ class AddTaskController extends Controller
 
         ]);
 
+//        dd($validatedData);
+
         $imagePath = $this->storeImage($request->file('image'));
 
 

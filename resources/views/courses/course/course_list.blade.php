@@ -44,8 +44,8 @@
 
                             <span
                                 class="text-sm text-gray-500 dark:text-gray-300">{{ $lesson->created_at->format('d M Y') }}</span>
-                            
-                            <a href="{{route('course_details.index',['id' => $lesson->id])}}" class="border border-yellow-500 bg-yellow-500 text-white rounded-md px-4 py-2 mt-2 transition duration-500 ease select-none hover:bg-yellow-600 focus:outline-none focus:shadow-outline">
+
+                            <a href="{{ route('course_details.index', ['lessonId' => $lesson->id]) }}" class="border border-yellow-500 bg-yellow-500 text-white rounded-md px-4 py-2 mt-2 transition duration-500 ease select-none hover:bg-yellow-600 focus:outline-none focus:shadow-outline">
                                 Start course
                             </a>
                         </div>

@@ -23,6 +23,14 @@
             display: block;
         }
 
+        .correct-answer {
+            @apply bg-green-500 text-white;
+        }
+
+        .incorrect-answer {
+            @apply bg-red-500 text-white;
+        }
+
     </style>
 </head>
 

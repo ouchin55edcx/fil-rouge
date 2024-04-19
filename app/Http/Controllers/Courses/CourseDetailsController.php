@@ -10,22 +10,18 @@ use Illuminate\Http\Request;
 
 class CourseDetailsController extends Controller
 {
-    public function index(Request $request)
+    public function index($lessonId)
     {
-        $lessonId = $request->query('id');
         $lesson = Lesson::findOrFail($lessonId);
-        $thisLesson = Lesson::where('id', $lesson->id)->with('image')->first(); // Retrieve the single lesson object
-    
-        $tasks = Task::where('lesson_id', $lesson->id)
-            ->with('questions.choices')
+        $thisLesson = Lesson::where('id', $lessonId)->with('image')->first();
+        $tasks = Task::where('lesson_id', $lessonId)
+            ->with('image', 'choices')
             ->get();
-    
-        // dd($thisLesson); // Remove the dd() statement
-    
+//        dd($tasks);
         return view('courses.course.course_details', [
             'lesson' => $lesson,
             'tasks' => $tasks,
-            'thisLesson' => $thisLesson // Use the correct variable name
+            'thisLesson' => $thisLesson
         ]);
     }
 }

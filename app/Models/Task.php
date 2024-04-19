@@ -19,13 +19,15 @@ class Task extends Model
 
     public function choices()
     {
-        return $this->hasMany(Choice::class, 'question_id');
+        return $this->hasMany(Choice::class, 'task_id');
     }
 
     public function image()
     {
-        return $this->hasOne(Image::class, 'imageable');
+        return $this->hasOne(Image::class, 'imageable_id');
     }
+
+
 
 
 }

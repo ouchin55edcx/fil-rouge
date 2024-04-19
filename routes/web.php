@@ -49,10 +49,8 @@ Route::resource('/courses/category', CorseController::class)->only('index');
 
 // courses list  routes
 Route::resource('/courses/course/course_list', CoursesListController::class)->only('index');
-Route::resource('/courses/course/course_details', CourseDetailsController::class)->only('index');
-
-
-
+//Route::resource('/courses/course/course_details', CourseDetailsController::class)->only('index');
+Route::get('/courses/course/{lessonId}/course_details', [CourseDetailsController::class, 'index'])->name('course_details.index');
 // dashborad admin routes
 Route::resource('/admin', AdminController::class)->only('index');
 
@@ -96,3 +94,5 @@ Route::put('/client/{client}/update-image', [ClientController::class, 'updateIma
 
 
 
+//score
+Route::post('/submit/answer', [\App\Http\Controllers\ScoreController::class, 'submitAnswer'])->name('submit.answer');

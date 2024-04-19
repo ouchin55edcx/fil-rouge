@@ -27,5 +27,10 @@ class Lesson extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
+
 
 }
