@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\course\AddCourseController;
 use App\Http\Controllers\Admin\course\CorseManagerController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Community\CommunityController;
+use App\Http\Controllers\Expert\ExpertController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
@@ -60,6 +61,12 @@ Route::resource('/admin/course/coursesManager', CorseManagerController::class)->
 
 Route::resource('/admin/course/addTask', \App\Http\Controllers\Admin\course\AddTaskController::class)->only('index', 'store', 'edit', 'update', 'destroy');
 Route::resource('/admin/course/addCourse', \App\Http\Controllers\Admin\course\AddCourseController::class)->only('index', 'store', 'edit', 'update', 'destroy');
+
+//dashboard expert
+Route::resource('/expert', ExpertController::class)->only('index');
+Route::post('/expert/approve', [ExpertController::class, 'approve'])->name('expert.approve');
+
+
 
 
 Route::post('/admin/course/addTask', [\App\Http\Controllers\Admin\course\AddTaskController::class, 'store'])->name('admin.course.addTask.store');

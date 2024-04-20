@@ -82,13 +82,6 @@
                                 <label class="text-xl text-gray-600">Proof... <span class="text-red-500">*</span></label><br>
                                 <input type="file" class="border-2 border-gray-300 p-2 bg-[#E9ECEF] rounded-lg w-full" multiple name="image[]" id="title" value="" required placeholder="Preuves..">
                             </div>
-                            @auth()
-                            <div class="mb-4 p-8">
-                                <label class="text-xl text-gray-600">Phone number...<span class="text-red-500">*</span></label><br>
-                                <input type="text" class="border-2 border-gray-300 p-2 bg-[#E9ECEF] rounded-lg w-full" name="phone_number" id="title" value="" required placeholder="Phone number...">
-                            </div>
-                            @endguest
-
                             @guest()
                             <div class="mb-4 p-8">
                                 <label class="text-xl text-gray-600">callback...<span class="text-red-500">*</span></label><br>

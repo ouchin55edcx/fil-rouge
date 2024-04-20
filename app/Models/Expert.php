@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Expert extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'user_id',
         'certificate',
@@ -19,4 +19,7 @@ class Expert extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
+
 }

@@ -11,10 +11,10 @@ class Complaint extends Model
     use HasFactory;
 
     protected $fillable = [
-        'attack', 'description', 'phone_number', 'user_id', 'callback'
+        'attack', 'description', 'user_id', 'callback'
     ];
 
-    public function images()
+    public function image()
     {
         return $this->morphMany(Image::class, 'imageable');
     }

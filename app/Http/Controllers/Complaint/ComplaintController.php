@@ -22,7 +22,6 @@
             $validatedData = $request->validate([
                 'attack' => 'required|in:TypeA,TypeB,TypeC',
                 'description' => 'required|string',
-                'phone_number' => 'nullable|string',
                 'is_anonymous' => 'nullable|boolean',
                 'callback' => 'nullable|string',
                 'image.*' => 'required|image|max:2048', // Max 2MB image file size for each file
@@ -33,7 +32,6 @@
             $complaint = new Complaint();
             $complaint->attack = $validatedData['attack'];
             $complaint->description = $validatedData['description'];
-            $complaint->phone_number = $validatedData['phone_number'] ?? null;
 //            $complaint->is_nonymous = $validatedData['is_anonymous'] ?? false;
             $complaint->callback = $validatedData['callback'] ?? null;
 

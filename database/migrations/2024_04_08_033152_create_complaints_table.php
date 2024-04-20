@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->enum('attack', ['TypeA', 'TypeB', 'TypeC']);
             $table->text('description');
-            $table->string('phone_number')->nullable();
             $table->boolean('is_nonymous')->default(0);
             $table->string('callback')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('expert_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('expert_id')->references('id')->on('experts')->nullOnDelete();
             $table->timestamps();
         });
     }
