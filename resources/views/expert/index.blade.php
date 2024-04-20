@@ -390,31 +390,34 @@
 
 </div>
 <script>
-    const approveButtons = document.querySelectorAll('.approve-button');
+    document.addEventListener('DOMContentLoaded', () => {
+        const approveButtons = document.querySelectorAll('.approve-button');
 
-    approveButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const complaintId = this.dataset.id;
+        approveButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const complaintId = button.dataset.id;
 
-            // Make a fetch request to update the expert_id
-            fetch('/expert/approve', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ complaint_id: complaintId })
-            })
-                .then(response => {
-                    if (response.ok){
-                        window.location.reload()
-                    }else {
+                try {
+                    const response = await fetch('/expert/approve', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({ complaint_id: complaintId })
+                    });
+
+                    if (response.ok) {
+                        // Reload the page after successful approval
+                        window.location.reload();
+                    } else {
+                        // Handle non-OK responses
                         throw new Error('Network response was not ok.');
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                } catch (error) {
+                    console.error('Error:', error.message);
+                }
+            });
         });
     });
 </script>

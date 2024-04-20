@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ask;
 use App\Models\Client;
+use App\Models\Complaint;
 use App\Models\Post;
 use App\Models\score;
 use App\Models\User;
@@ -40,6 +41,11 @@ class ClientController extends Controller
 //        dd($posts);
 
 
+        $complaints = Complaint::where('user_id', $userId)
+            ->select('id', 'description', 'status')
+            ->get();
+
+
 //        scrore
 
         // Find the score record for the authenticated user
@@ -51,7 +57,7 @@ class ClientController extends Controller
         ] : null;
 
 //        dd($userScore);
-        return view('client.index', compact('userInfo', 'posts', 'questions','savedPosts','userScore'));
+        return view('client.index', compact('userInfo', 'posts', 'questions','savedPosts','userScore','complaints'));
     }
 
     public function update(Request $request, $id)

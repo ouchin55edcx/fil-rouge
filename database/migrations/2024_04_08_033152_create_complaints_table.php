@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->boolean('is_nonymous')->default(0);
             $table->string('callback')->nullable();
+            $table->enum('status', ['en attente', 'approved', 'in process', 'solved'])->default('en attente');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('expert_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

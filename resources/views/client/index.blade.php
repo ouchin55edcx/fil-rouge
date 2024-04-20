@@ -116,6 +116,21 @@
                     @endforeach
                 </div>
 
+
+                <h1 class="text-center text-2xl font-bold mb-4">My Complaints</h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @foreach ($complaints as $complaint)
+                        <div class="card bg-green-200 rounded-lg p-4">
+                            <p class="text-lg font-bold">Complaint ID: {{ $complaint->id }}</p>
+                            <p class="text-sm">Status: {{ ucfirst($complaint->status) }}</p>
+                            <p class="text-sm">Description: {{ strlen($complaint->description) > 10 ? substr($complaint->description, 0, 10) . '...' : $complaint->description }}</p>
+                        </div>
+                    @endforeach
+                </div>
+
+
+
                 <div class="flex-1 bg-white rounded-lg shadow-xl p-8 mt-8">
                     <div class="flex  justify-between border-b-2 border-gray-700">
                         <div>
